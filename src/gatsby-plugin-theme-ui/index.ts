@@ -2,10 +2,10 @@ import { Theme } from 'theme-ui'
 
 const theme: Theme = {
     colors: {
-        text: '#333',
-        background: '#fff',
-        primary: '#639',
-        secondary: '#ff6347',
+        text: '#010202',
+        background: '#FFFFFF',
+        primary: '#48F5C8',
+        secondary: '#010202',
     },
     fonts: {
         body: 'system-ui, sans-serif',

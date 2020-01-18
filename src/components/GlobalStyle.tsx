@@ -5,7 +5,7 @@ function styles(): SerializedStyles {
     return css(
         `
 html {
-  font-family: sans-serif;
+  font-family: sans-serif
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -46,8 +46,11 @@ template {
   display: none;
 }
 a {
+  color: inherit;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
+  text-decoration: none;
+  padding: 0 8px;
 }
 a:active,
 a:hover {
@@ -206,7 +209,8 @@ html {
 }
 body {
   color: hsla(0, 0%, 0%, 0.8);
-  font-family: georgia, serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-weight: normal;
   word-wrap: break-word;
   font-kerning: normal;
@@ -234,7 +238,7 @@ h1 {
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
-  margin-bottom: 1.45rem;
+  margin-bottom: 0;
   color: inherit;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -346,9 +350,10 @@ ul {
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
-  margin-bottom: 1.45rem;
+  margin-bottom: 0;
   list-style-position: outside;
   list-style-image: none;
+  list-style: none;
 }
 ol {
   margin-left: 1.45rem;
@@ -515,7 +520,7 @@ th {
   font-weight: bold;
 }
 li {
-  margin-bottom: calc(1.45rem / 2);
+  margin-bottom: 0;
 }
 ol li {
   padding-left: 0;
