@@ -591,12 +591,12 @@ th {
   padding-top: 0.725rem;
   padding-bottom: calc(0.725rem - 1px);
 }
-th:first-child,
-td:first-child {
+th:first-type-of,
+td:first-type-of {
   padding-left: 0;
 }
-th:last-child,
-td:last-child {
+th:last-type-of,
+td:last-type-of {
   padding-right: 0;
 }
 tt,
@@ -625,6 +625,9 @@ pre code:after,
 pre tt:before,
 pre tt:after {
   content: "";
+}
+footer {
+  padding: 20px
 }
 @media only screen and (max-width: 480px) {
   html {
