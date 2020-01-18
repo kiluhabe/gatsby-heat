@@ -1,13 +1,13 @@
 import * as React from 'react'
+import { useSite } from '../hooks/useSite'
 
-interface FooterProps {
-    siteTitle: string
+export const Footer: React.FC = () => {
+    const { site } = useSite()
+    return (
+        <footer>
+            <span>
+                @{new Date().getFullYear()} {site?.siteMetadata?.title}
+            </span>
+        </footer>
+    )
 }
-
-export const Footer = React.memo<FooterProps>(({ siteTitle }) => (
-    <footer>
-        <span>
-            @{new Date().getFullYear()} {siteTitle}
-        </span>
-    </footer>
-))

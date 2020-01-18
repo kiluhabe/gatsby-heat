@@ -1,13 +1,18 @@
 import * as React from 'react'
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { SxProps, Theme, jsx } from 'theme-ui'
+import { useSite } from '../hooks/useSite'
 
-interface HeaderProps {
-    siteTitle: string
+const sx: SxProps['sx'] = ({ colors }: Theme) => ({
+    color: colors?.text,
+    backgroundColor: colors?.primary,
+})
+
+export const Header: React.FC = () => {
+    const { site } = useSite()
+    return (
+        <header sx={sx}>
+            <h1>{site?.siteMetadata?.title}</h1>
+        </header>
+    )
 }
-
-export const Header = React.memo<HeaderProps>(({ siteTitle }) => (
-    <header sx={{ color: 'background', backgroundColor: 'primary' }}>
-        <h1>{siteTitle}</h1>
-    </header>
-))
