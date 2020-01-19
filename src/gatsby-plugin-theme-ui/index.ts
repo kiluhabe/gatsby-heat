@@ -44,6 +44,26 @@ const theme: Theme = {
             textRendering: 'optimizeLegibility',
             lineHeight: 'heading',
         },
+        h2: {
+            margin: 0,
+            padding: 0,
+            color: 'inherit',
+            fontFamily: 'heading',
+            fontSize: 5,
+            fontWeight: 'heading',
+            textRendering: 'optimizeLegibility',
+            lineHeight: 'heading',
+        },
+        h3: {
+            margin: 0,
+            padding: 0,
+            color: 'inherit',
+            fontFamily: 'heading',
+            fontSize: 4,
+            fontWeight: 'heading',
+            textRendering: 'optimizeLegibility',
+            lineHeight: 'heading',
+        },
     },
 }
 

@@ -17,6 +17,13 @@ export const styles: InterpolationWithTheme<Theme> = theme => ({
     },
     main: {
         display: 'block',
+        paddingTop: '40px',
+        paddingLeft: '15px',
+        paddingRight: '15px',
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        maxWidth: '1140px',
+        width: '100%',
     },
     footer: {
         display: 'block',
@@ -31,6 +38,11 @@ export const styles: InterpolationWithTheme<Theme> = theme => ({
         textDecoration: 'none',
         color: 'inherit',
         padding: ['8px', '8px'],
+        textAlign: 'center',
+    },
+    p: {
+        marginTop: 0,
+        marginBottom: '8px',
     },
 })
 
