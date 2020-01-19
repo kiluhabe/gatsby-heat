@@ -8,12 +8,14 @@ const theme: Theme = {
         secondary: '#010202',
     },
     fonts: {
-        body: 'system-ui, sans-serif',
-        heading: 'system-ui, sans-serif',
+        // eslint-disable-next-line max-len
+        body: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
+        // eslint-disable-next-line max-len
+        heading: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
         monospace: 'Menlo, monospace',
     },
     fontWeights: {
-        body: 400,
+        body: 'normal',
         heading: 700,
         bold: 700,
     },
@@ -21,8 +23,28 @@ const theme: Theme = {
         body: 1.5,
         heading: 1.125,
     },
-    fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
+    fontSizes: [12, 14, 16, 20, 24, 32, 48],
     space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+    styles: {
+        root: {
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '100vh',
+            fontFamily: 'body',
+            fontWeight: 'body',
+            lineHeight: 'body',
+        },
+        h1: {
+            margin: 0,
+            padding: 0,
+            color: 'inherit',
+            fontFamily: 'heading',
+            fontSize: 6,
+            fontWeight: 'heading',
+            textRendering: 'optimizeLegibility',
+            lineHeight: 'heading',
+        },
+    },
 }
 
 export default theme

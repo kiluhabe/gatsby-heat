@@ -16,48 +16,32 @@ type SeoProps = Partial<{
 
 export const Seo: React.FC<SeoProps> = ({ description, lang, title, meta = [] }) => {
     const { site } = useSite()
-    const metaTitle = title ?? site?.siteMetadata?.title
-    const metaDescription = description ?? site?.siteMetadata?.description
+    const siteTitle = site?.siteMetadata?.title
+    const siteDescription = site?.siteMetadata?.description
 
     return (
         <Helmet
             htmlAttributes={{
                 lang,
             }}
-            title={metaTitle}
-            titleTemplate={`%s | ${metaTitle}`}
+            title={siteTitle}
+            titleTemplate={`%s | ${title}`}
             meta={[
                 {
                     name: `description`,
-                    content: metaDescription,
+                    content: description ?? siteDescription,
                 },
                 {
                     property: `og:title`,
-                    content: metaTitle,
+                    content: title ?? siteTitle,
                 },
                 {
                     property: `og:description`,
-                    content: metaDescription,
+                    content: description ?? siteDescription,
                 },
                 {
                     property: `og:type`,
                     content: `website`,
-                },
-                {
-                    name: `twitter:card`,
-                    content: `summary`,
-                },
-                {
-                    name: `twitter:creator`,
-                    content: site?.siteMetadata?.author,
-                },
-                {
-                    name: `twitter:title`,
-                    content: metaTitle,
-                },
-                {
-                    name: `twitter:description`,
-                    content: metaDescription,
                 },
             ].concat(meta)}
         />
