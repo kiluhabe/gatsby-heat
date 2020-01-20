@@ -1,13 +1,18 @@
 import * as React from 'react'
 import { Layout } from '../components/Layout'
+import { PageHeader } from '../components/PageHeader'
 import { Seo } from '../components/Seo'
+
+const contents = {
+    title: 'Hi people',
+    description: `Welcome to your new Gatsby site.
+Now go build something great.`,
+}
 
 const IndexPage = React.memo(() => (
     <Layout>
         <Seo title="Home" />
-        <h1>Hi people</h1>
-        <p>Welcome to your new Gatsby site.</p>
-        <p>Now go build something great.</p>
+        <PageHeader {...contents} />
     </Layout>
 ))
 

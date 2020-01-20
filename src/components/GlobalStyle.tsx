@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Global, InterpolationWithTheme } from '@emotion/core'
 import { Theme } from 'theme-ui'
 
-export const styles: InterpolationWithTheme<Theme> = theme => ({
+export const styles: InterpolationWithTheme<Theme> = {
     html: {
         boxSizing: 'border-box',
         overflowY: 'scroll',
@@ -12,8 +12,6 @@ export const styles: InterpolationWithTheme<Theme> = theme => ({
     },
     header: {
         display: 'block',
-        color: theme.colors?.background,
-        backgroundColor: theme.colors?.text,
     },
     main: {
         display: 'block',
@@ -44,6 +42,6 @@ export const styles: InterpolationWithTheme<Theme> = theme => ({
         marginTop: 0,
         marginBottom: '8px',
     },
-})
+}
 
 export const GlobalStyle: React.FC = () => <Global styles={styles} />
