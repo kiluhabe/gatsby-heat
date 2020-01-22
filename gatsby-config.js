@@ -4,8 +4,6 @@ module.exports = {
     siteMetadata,
     plugins: [
         `gatsby-plugin-react-helmet`,
-        `gatsby-transformer-sharp`,
-        `gatsby-plugin-sharp`,
         `gatsby-plugin-typescript`,
         `gatsby-plugin-theme-ui`,
         `gatsby-plugin-sitemap`,
@@ -16,7 +14,14 @@ module.exports = {
             resolve: `gatsby-source-filesystem`,
             options: {
                 name: `images`,
-                path: `${__dirname}/contents`,
+                path: `${__dirname}/contents/images/`,
+            },
+        },
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                name: `pages`,
+                path: `${__dirname}/contents/pages/`,
             },
         },
         {
@@ -29,8 +34,10 @@ module.exports = {
                 background_color: `#FFFFFF`,
                 theme_color: `#FFFFFF`,
                 display: `minimal-ui`,
-                //                icon: `src/images/gatsby-icon.png`,
+                icon: `contents/images/icon.png`,
             },
         },
+        `gatsby-plugin-sharp`,
+        `gatsby-transformer-sharp`,
     ],
 }
