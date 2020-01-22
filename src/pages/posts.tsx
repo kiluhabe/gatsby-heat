@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Container } from '../components/Container'
 import { Layout } from '../components/Layout'
 import { PageHeader } from '../components/PageHeader'
 import { PostCardList } from '../components/PostCardList'
@@ -17,8 +18,10 @@ const posts = Array(10)
 const PostsPage = React.memo(() => (
     <Layout>
         <Seo title="Posts" />
-        <PageHeader title="Posts" />
-        <PostCardList posts={posts} />
+        <Container Tag="section">
+            <PageHeader title="Posts" />
+            <PostCardList posts={posts} />
+        </Container>
     </Layout>
 ))
 

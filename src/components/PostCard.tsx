@@ -1,7 +1,6 @@
 import * as React from 'react'
 /** @jsx jsx */
-import { Styled, Theme, jsx } from 'theme-ui'
-import { CSSObject } from '@emotion/core'
+import { Styled, jsx } from 'theme-ui'
 import { Link } from 'gatsby'
 
 export interface PostCardProps {
@@ -40,7 +39,7 @@ export const PostCard: React.FC<PostCardProps> = ({ title, description, tags, pi
         <section sx={{ flex: '1 1 auto', padding: '1.25rem' }}>
             <p>
                 {tags.map(tag => (
-                    <small sx={{ marginRight: '8px', color: 'rgba(0,0,0,.8)' }} key={tag}>
+                    <small sx={{ marginRight: '8px', color: 'gray' }} key={tag}>
                         {tag}
                     </small>
                 ))}
@@ -49,11 +48,13 @@ export const PostCard: React.FC<PostCardProps> = ({ title, description, tags, pi
             <p>{description}</p>
         </section>
         <Link
-            sx={(theme: Theme): CSSObject => ({
-                backgroundColor: theme.colors?.primary,
+            sx={{
+                backgroundColor: 'primary',
+                color: 'highlight',
                 fontWeight: 'bold',
                 padding: '.75rem 1.25rem',
-            })}
+                textAlign: 'center',
+            }}
             to={to}
         >
             View Post

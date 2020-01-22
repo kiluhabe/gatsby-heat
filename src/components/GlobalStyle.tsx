@@ -10,37 +10,15 @@ export const styles: InterpolationWithTheme<Theme> = {
     body: {
         margin: 0,
     },
-    header: {
-        display: 'block',
-    },
-    main: {
-        display: 'block',
-        paddingTop: '40px',
-        paddingLeft: '15px',
-        paddingRight: '15px',
-        marginRight: 'auto',
-        marginLeft: 'auto',
-        maxWidth: '1140px',
-        width: '100%',
-    },
-    footer: {
-        display: 'block',
-        padding: '20px',
-    },
-    ul: {
-        maring: 0,
-        padding: 0,
-        listStyle: 'none',
-    },
     a: {
         textDecoration: 'none',
-        color: 'inherit',
-        padding: ['8px', '8px'],
-        textAlign: 'center',
     },
     p: {
         marginTop: 0,
         marginBottom: '8px',
+    },
+    ul: {
+        padding: 0,
     },
 }
 

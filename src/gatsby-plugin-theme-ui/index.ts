@@ -11,6 +11,9 @@ const ownTheme: Theme = {
             fontWeight: 'body',
             lineHeight: 'body',
         },
+        ul: {
+            listStyle: 'none',
+        },
     },
 }
 

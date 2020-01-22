@@ -1,14 +1,14 @@
 import * as React from 'react'
 import { PostCard, PostCardProps } from './PostCard'
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { Styled, jsx } from 'theme-ui'
 
 interface PostCardListProps {
     posts: PostCardProps[]
 }
 
 export const PostCardList: React.FC<PostCardListProps> = ({ posts }) => (
-    <ul
+    <Styled.ul
         sx={{
             display: 'flex',
             alignItems: 'stretch',
@@ -19,7 +19,7 @@ export const PostCardList: React.FC<PostCardListProps> = ({ posts }) => (
         }}
     >
         {posts.map(post => (
-            <li
+            <Styled.li
                 key={post.title}
                 sx={{
                     flex: '0 0 33.33333%',
@@ -33,7 +33,7 @@ export const PostCardList: React.FC<PostCardListProps> = ({ posts }) => (
                 }}
             >
                 <PostCard {...post} />
-            </li>
+            </Styled.li>
         ))}
-    </ul>
+    </Styled.ul>
 )
