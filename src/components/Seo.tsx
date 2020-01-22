@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Helmet from 'react-helmet'
-import { useSite } from '../hooks/useSite'
+import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
 interface Meta {
     name: string
@@ -15,7 +15,7 @@ type SeoProps = Partial<{
 }>
 
 export const Seo: React.FC<SeoProps> = ({ description, lang, title, meta = [] }) => {
-    const { site } = useSite()
+    const { site } = useSiteMetadata()
     const siteTitle = site?.siteMetadata?.title
     const siteDescription = site?.siteMetadata?.description
 

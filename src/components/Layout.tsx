@@ -1,17 +1,17 @@
 import * as React from 'react'
 /** @jsx jsx */
 import { Styled, jsx } from 'theme-ui'
-import { Footer } from './Footer'
+import { GlobalFooter } from './GlobalFooter'
+import { GlobalHeader } from './GlobalHeader'
 import { GlobalStyle } from './GlobalStyle'
-import { Header } from './Header'
 
 export const Layout = React.memo(({ children }) => {
     return (
         <Styled.root>
             <GlobalStyle />
-            <Header />
+            <GlobalHeader />
             <main sx={{ flex: 1 }}>{children}</main>
-            <Footer />
+            <GlobalFooter />
         </Styled.root>
     )
 })

@@ -2,10 +2,10 @@ import * as React from 'react'
 /** @jsx jsx */
 import { Theme, jsx } from 'theme-ui'
 import { CSSObject } from '@emotion/core'
-import { useSite } from '../hooks/useSite'
+import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
-export const Footer: React.FC = () => {
-    const { site } = useSite()
+export const GlobalFooter: React.FC = () => {
+    const { site } = useSiteMetadata()
     return (
         <footer sx={({ colors }: Theme): CSSObject => ({ background: colors?.text, color: colors?.background })}>
             <span sx={{ fontSize: '80%' }}>

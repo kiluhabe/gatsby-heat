@@ -35,14 +35,7 @@ module.exports = {
         },
         sourceType: 'module',
     },
-    plugins: [
-        'no-for-of-loops',
-        'prettier',
-        '@typescript-eslint',
-        'react',
-        'react-hooks',
-        'jsx-a11y',
-    ],
+    plugins: ['no-for-of-loops', 'prettier', '@typescript-eslint', 'react', 'react-hooks', 'jsx-a11y'],
     rules: {
         'accessor-pairs': OFF,
         'brace-style': [ERROR, '1tbs'],
@@ -57,20 +50,12 @@ module.exports = {
         'max-len': [ERROR, 120, 2],
         'no-inner-declarations': [ERROR, 'functions'],
         'no-multi-spaces': ERROR,
-        'no-restricted-syntax': [
-            ERROR,
-            'WithStatement',
-            "BinaryExpression[operator='in']",
-        ],
+        'no-restricted-syntax': [ERROR, 'WithStatement', "BinaryExpression[operator='in']"],
         'no-shadow': ERROR,
         'no-unused-expressions': ERROR,
         'no-unused-vars': ERROR,
         'no-use-before-define': ERROR,
-        quotes: [
-            ERROR,
-            'single',
-            { avoidEscape: true, allowTemplateLiterals: true },
-        ],
+        quotes: [ERROR, 'single', { avoidEscape: true, allowTemplateLiterals: true }],
         'sort-imports': ERROR,
         'space-before-blocks': ERROR,
         'space-before-function-paren': OFF,
@@ -80,10 +65,7 @@ module.exports = {
         'no-for-of-loops/no-for-of-loops': ERROR,
 
         '@typescript-eslint/indent': [ERROR, 4],
-        '@typescript-eslint/no-unused-vars': [
-            ERROR,
-            { argsIgnorePattern: '^_' },
-        ],
+        '@typescript-eslint/no-unused-vars': [ERROR, { argsIgnorePattern: '^_' }],
         '@typescript-eslint/member-delimiter-style': OFF,
         '@typescript-eslint/camelcase': [ERROR, { properties: 'never' }],
 
@@ -93,10 +75,7 @@ module.exports = {
         'react/jsx-closing-bracket-location': ERROR,
         'react/jsx-closing-tag-location': ERROR,
         'react/jsx-curly-spacing': OFF,
-        'react/jsx-filename-extension': [
-            ERROR,
-            { extensions: ['.jsx', '.tsx'] },
-        ],
+        'react/jsx-filename-extension': [ERROR, { extensions: ['.jsx', '.tsx'] }],
         'react/jsx-no-bind': [ERROR, { allowArrowFunctions: true }],
         'react/jsx-no-undef': ERROR,
         'react/jsx-pascal-case': ERROR,

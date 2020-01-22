@@ -3,10 +3,10 @@ import * as React from 'react'
 import { Styled, Theme, jsx } from 'theme-ui'
 import { CSSObject } from '@emotion/core'
 import { Link } from 'gatsby'
-import { useSite } from '../hooks/useSite'
+import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
-export const Header: React.FC = () => {
-    const { site } = useSite()
+export const GlobalHeader: React.FC = () => {
+    const { site } = useSiteMetadata()
     return (
         <header
             sx={(theme: Theme): CSSObject => ({ color: theme.colors?.background, backgroundColor: theme.colors?.text })}
