@@ -5,13 +5,11 @@ import { GlobalFooter } from './GlobalFooter'
 import { GlobalHeader } from './GlobalHeader'
 import { GlobalStyle } from './GlobalStyle'
 
-export const Layout = React.memo(({ children }) => {
-    return (
-        <Styled.root>
-            <GlobalStyle />
-            <GlobalHeader />
-            <main sx={{ flex: 1 }}>{children}</main>
-            <GlobalFooter />
-        </Styled.root>
-    )
-})
+export const Layout: React.FC = ({ children }) => (
+    <Styled.root>
+        <GlobalStyle />
+        <GlobalHeader />
+        <main sx={{ flex: 1 }}>{children}</main>
+        <GlobalFooter />
+    </Styled.root>
+)

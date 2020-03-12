@@ -15,7 +15,7 @@ const posts = Array(10)
         to: '/posts',
     }))
 
-const PostsPage = React.memo(() => (
+const PostsPage: React.FC = () => (
     <Layout>
         <Seo title="Posts" />
         <Container Tag="section">
@@ -23,6 +23,6 @@ const PostsPage = React.memo(() => (
             <PostCardList posts={posts} />
         </Container>
     </Layout>
-))
+)
 
 export default PostsPage

@@ -14,7 +14,7 @@ type SeoProps = Partial<{
     meta: Meta[]
 }>
 
-export const Seo: React.FC<SeoProps> = ({ description, lang, title, meta = [] }) => {
+export const Seo: React.FC<SeoProps> = ({ description, title, lang = 'ja', meta = [] }) => {
     const { site } = useSiteMetadata()
     const siteTitle = site?.siteMetadata?.title
     const siteDescription = site?.siteMetadata?.description
@@ -25,7 +25,7 @@ export const Seo: React.FC<SeoProps> = ({ description, lang, title, meta = [] })
                 lang,
             }}
             title={siteTitle}
-            titleTemplate={`%s | ${title}`}
+            titleTemplate={`${title} | %s`}
             meta={[
                 {
                     name: `description`,

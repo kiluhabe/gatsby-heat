@@ -1,8 +1,8 @@
 import * as React from 'react'
+/** @jsx jsx */
 import { Styled, jsx } from 'theme-ui'
 import BackgroundImage from 'gatsby-background-image'
 import { Container } from './Container'
-/** @jsx jsx */
 import { useImage } from '../hooks/useImage'
 
 interface HeroProps {

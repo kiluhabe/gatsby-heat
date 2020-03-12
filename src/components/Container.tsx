@@ -14,6 +14,7 @@ export const Container: React.FC<ContainerProps> = ({ Tag, children }) => {
             sx={{
                 display: 'block',
                 paddingTop: '40px',
+                paddingBottom: '40px',
                 paddingLeft: '15px',
                 paddingRight: '15px',
                 marginRight: 'auto',

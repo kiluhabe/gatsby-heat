@@ -16,7 +16,7 @@ const posts = Array(10)
         to: '/posts',
     }))
 
-const IndexPage = React.memo(() => (
+const IndexPage: React.FC = () => (
     <Layout>
         <Seo title="Home" />
         <Hero title="Welcome!" filename="hero.jpg" />
@@ -25,6 +25,6 @@ const IndexPage = React.memo(() => (
             <PostCardList posts={posts} />
         </Container>
     </Layout>
-))
+)
 
 export default IndexPage
