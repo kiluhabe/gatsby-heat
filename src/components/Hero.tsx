@@ -1,42 +1,48 @@
 import * as React from 'react'
 /** @jsx jsx */
 import { Styled, jsx } from 'theme-ui'
-import BackgroundImage from 'gatsby-background-image'
 import { Container } from './Container'
-import { useImage } from '../hooks/useImage'
 
 interface HeroProps {
     title: string
-    filename: string
+    image: string
     description?: string
 }
 
-const BackgroundImageWrapper: React.FC<{ filename: string }> = ({ filename, children }) => {
-    const sizes = useImage(filename)
+const HeroInner: React.FC<{ image: string }> = ({ children, image }) => {
     return (
-        <BackgroundImage
+        <section
             sx={{
                 height: '250px',
+                backgroundImage: `url(${image})`,
                 backgroundSize: 'cover',
+                backgroundAttachment: 'fixed',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexDirection: 'column',
                 zIndex: -3,
+                position: 'relative',
             }}
-            Tag="section"
-            fluid={sizes}
-            backgroundColor="#102010"
         >
+            <div
+                sx={{
+                    position: 'absolute',
+                    top: 0,
+                    bottom: 0,
+                    right: 0,
+                    left: 0,
+                    zIndex: -2,
+                    background: 'rgba(0, 0, 0, 0.2)',
+                }}
+            />
             {children}
-        </BackgroundImage>
+        </section>
     )
 }
 
-export const Hero: React.FC<HeroProps> = ({ title, description, filename }) => {
-    const Tag: React.FC = ({ children }) => (
-        <BackgroundImageWrapper filename={filename}>{children}</BackgroundImageWrapper>
-    )
+export const Hero: React.FC<HeroProps> = ({ title, description, image }) => {
+    const Tag: React.FC = ({ children }) => <HeroInner image={image}>{children}</HeroInner>
     return (
         <Container Tag={Tag}>
             <Styled.h1 sx={{ color: 'background' }}>{title}</Styled.h1>

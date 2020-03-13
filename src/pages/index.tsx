@@ -36,7 +36,10 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
     return (
         <Layout>
             <Seo title="Home" />
-            <Hero title="Welcome!" filename="hero.jpg" />
+            <Hero
+                title="Welcome!"
+                image="https://cdn.packhacker.com/2019/10/80571196-budget-packing-list-flat-lay.jpg"
+            />
             <Container Tag="section">
                 <PageHeader title="Recently Posts" />
                 <PostCardList posts={posts} />
