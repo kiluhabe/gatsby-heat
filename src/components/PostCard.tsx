@@ -12,7 +12,7 @@ export interface PostCardProps {
 }
 
 export const PostCard: React.FC<PostCardProps> = ({ title, description, categories, image, path }) => (
-    <Link
+    <article
         sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -25,29 +25,44 @@ export const PostCard: React.FC<PostCardProps> = ({ title, description, categori
             border: '1px solid rgba(0,0,0,.125)',
             textDecoration: 'none',
         }}
-        to={path}
     >
-        <img
-            sx={{
-                width: '100%',
-                maxWidth: '100%',
-                height: 'auto',
-                borderTopRightRadius: '.25rem',
-                borderTopLeftRadius: '.25rem',
-            }}
-            alt={title}
-            src={image}
-        />
+        <Link to={path}>
+            <img
+                sx={{
+                    width: '100%',
+                    maxWidth: '100%',
+                    height: 'auto',
+                    borderTopRightRadius: '.25rem',
+                    borderTopLeftRadius: '.25rem',
+                }}
+                alt={title}
+                src={image}
+            />
+        </Link>
         <section sx={{ flex: '1 1 auto', padding: '1.25rem' }}>
             <p>
                 {categories.map(category => (
-                    <small sx={{ marginRight: '8px', color: 'gray' }} key={category}>
+                    <Link sx={{ marginRight: '8px', color: 'gray' }} key={category} to={`/categories/${category}`}>
                         {category}
-                    </small>
+                    </Link>
                 ))}
             </p>
-            <Styled.h3 sx={{ marginBottom: '8px' }}>{title}</Styled.h3>
+            <Link to={path}>
+                <Styled.h3 sx={{ marginBottom: '8px' }}>{title}</Styled.h3>
+            </Link>
             <p sx={{ color: 'gray' }}>{description}</p>
         </section>
-    </Link>
+        <Link
+            sx={{
+                backgroundColor: 'primary',
+                color: 'highlight',
+                fontWeight: 'bold',
+                padding: '.75rem 1.25rem',
+                textAlign: 'center',
+            }}
+            to={path}
+        >
+            View Post
+        </Link>
+    </article>
 )
