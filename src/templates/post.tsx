@@ -1,9 +1,9 @@
 import * as React from 'react'
+import { Link, graphql } from 'gatsby'
 import { Container } from '../components/Container'
 import { Layout } from '../components/Layout'
 import { PageHeader } from '../components/PageHeader'
 import { Seo } from '../components/Seo'
-import { graphql } from 'gatsby'
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 
@@ -14,6 +14,7 @@ interface PostProps {
             frontmatter: {
                 title: string
                 description: string
+                categories: string[]
                 image: string
                 date: string
             }
@@ -23,11 +24,18 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({ data }) => {
     const { html, frontmatter } = data.markdownRemark
-    const { title, description, image } = frontmatter
+    const { title, description, image, categories } = frontmatter
     return (
         <Layout>
             <Seo title={title} description={description} />
             <Container Tag="section">
+                <p>
+                    {categories.map(category => (
+                        <Link sx={{ marginRight: '8px', color: 'gray' }} key={category} to={`/categories/${category}`}>
+                            {category}
+                        </Link>
+                    ))}
+                </p>
                 <PageHeader title={title} description={description} />
                 <img sx={{ width: '100%', marginTop: '32px', marginBottom: '32px' }} alt={title} src={image} />
                 <div dangerouslySetInnerHTML={{ __html: html }} />
@@ -43,6 +51,7 @@ export const query = graphql`
             frontmatter {
                 title
                 description
+                categories
                 image
             }
         }

@@ -1,6 +1,7 @@
 'use strict'
 
 const path = require('path')
+const { uniq, flatten } = require('ramda')
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
     const { createNodeField } = actions
@@ -27,6 +28,19 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     }
 }
 
+function extractCategories(allMarkdownRemark) {
+    const categories = allMarkdownRemark.edges.map(({ node }) => {
+        return node.frontmatter.categories.map(category => category)
+    })
+    return uniq(flatten(categories))
+}
+
+function idsOf(category, allMarkdownRemark) {
+    return allMarkdownRemark.edges
+        .filter(({ node }) => node.frontmatter.categories.includes(category))
+        .map(({ node }) => node.id)
+}
+
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
 
@@ -35,9 +49,13 @@ exports.createPages = async ({ graphql, actions }) => {
             allMarkdownRemark(limit: 1000) {
                 edges {
                     node {
+                        id
                         fields {
                             layout
                             slug
+                        }
+                        frontmatter {
+                            categories
                         }
                     }
                 }
@@ -51,11 +69,23 @@ exports.createPages = async ({ graphql, actions }) => {
     }
 
     allMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
+        const { id } = node
         const { slug, layout } = node.fields
         createPage({
-            path: `/posts${slug}`,
+            path: `/posts/${id}`,
             component: path.resolve(`./src/templates/post.tsx`),
             context: { slug },
+        })
+    })
+    const categories = extractCategories(allMarkdown.data.allMarkdownRemark)
+    categories.forEach(category => {
+        createPage({
+            path: `/categories/${category}`,
+            component: path.resolve(`./src/templates/posts.tsx`),
+            context: {
+                category,
+                ids: idsOf(category, allMarkdown.data.allMarkdownRemark),
+            },
         })
     })
 }

@@ -1,13 +1,12 @@
 import * as React from 'react'
 import { Container } from '../components/Container'
-import { Hero } from '../components/Hero'
 import { Layout } from '../components/Layout'
 import { PageHeader } from '../components/PageHeader'
 import { PostCardList } from '../components/PostCardList'
 import { Seo } from '../components/Seo'
 import { graphql } from 'gatsby'
 
-interface IndexProps {
+interface PostsProps {
     data: {
         allMarkdownRemark: {
             edges: [
@@ -26,19 +25,22 @@ interface IndexProps {
             ]
         }
     }
+    pageContext: {
+        category: string
+    }
 }
 
-const IndexPage: React.FC<IndexProps> = ({ data }) => {
+const PostsPage: React.FC<PostsProps> = ({ data, pageContext }) => {
+    const { category } = pageContext
     const posts = data.allMarkdownRemark.edges.map(({ node }) => ({
         ...node.frontmatter,
         path: `/posts/${node.id}`,
     }))
     return (
         <Layout>
-            <Seo title="Home" />
-            <Hero title="Welcome!" filename="hero.jpg" />
+            <Seo title={category} />
             <Container Tag="section">
-                <PageHeader title="Recently Posts" />
+                <PageHeader title={category} />
                 <PostCardList posts={posts} />
             </Container>
         </Layout>
@@ -46,18 +48,17 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
 }
 
 export const query = graphql`
-    query {
-        allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
+    query CategoryListQuery($ids: [String]!) {
+        allMarkdownRemark(filter: { id: { in: $ids } }) {
             edges {
                 node {
                     id
-                    excerpt(pruneLength: 250)
                     frontmatter {
-                        date(formatString: "MMMM DD, YYYY")
                         title
+                        description
                         categories
                         image
-                        description
+                        date
                     }
                 }
             }
@@ -65,4 +66,4 @@ export const query = graphql`
     }
 `
 
-export default IndexPage
+export default PostsPage
