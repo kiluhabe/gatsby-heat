@@ -14,18 +14,6 @@ export const GlobalHeader: React.FC = () => {
                         {site?.siteMetadata?.title}
                     </Link>
                 </Styled.h1>
-                <Styled.ul sx={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
-                    <Styled.li>
-                        <Link to="/posts" sx={{ margin: '8px 8px', color: 'inherit' }}>
-                            POSTS
-                        </Link>
-                    </Styled.li>
-                    <Styled.li>
-                        <Link to="/posts" sx={{ margin: '8px 8px', color: 'inherit' }}>
-                            ABOUT
-                        </Link>
-                    </Styled.li>
-                </Styled.ul>
             </nav>
         </header>
     )

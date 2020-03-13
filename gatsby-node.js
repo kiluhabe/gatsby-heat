@@ -53,7 +53,7 @@ exports.createPages = async ({ graphql, actions }) => {
     allMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
         const { slug, layout } = node.fields
         createPage({
-            path: slug,
+            path: `/posts${slug}`,
             component: path.resolve(`./src/templates/post.tsx`),
             context: { slug },
         })

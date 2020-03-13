@@ -6,13 +6,13 @@ import { Link } from 'gatsby'
 export interface PostCardProps {
     title: string
     description: string
-    tags: string[]
-    picture: string
-    to: string
+    categories: string[]
+    image: string
+    path: string
 }
 
-export const PostCard: React.FC<PostCardProps> = ({ title, description, tags, picture, to }) => (
-    <article
+export const PostCard: React.FC<PostCardProps> = ({ title, description, categories, image, path }) => (
+    <Link
         sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -23,7 +23,9 @@ export const PostCard: React.FC<PostCardProps> = ({ title, description, tags, pi
             backgroundClip: 'border-box',
             borderRadius: '.25rem',
             border: '1px solid rgba(0,0,0,.125)',
+            textDecoration: 'none',
         }}
+        to={path}
     >
         <img
             sx={{
@@ -33,31 +35,19 @@ export const PostCard: React.FC<PostCardProps> = ({ title, description, tags, pi
                 borderTopRightRadius: '.25rem',
                 borderTopLeftRadius: '.25rem',
             }}
-            alt="headline"
-            src={picture}
+            alt={title}
+            src={image}
         />
         <section sx={{ flex: '1 1 auto', padding: '1.25rem' }}>
             <p>
-                {tags.map(tag => (
-                    <small sx={{ marginRight: '8px', color: 'gray' }} key={tag}>
-                        {tag}
+                {categories.map(category => (
+                    <small sx={{ marginRight: '8px', color: 'gray' }} key={category}>
+                        {category}
                     </small>
                 ))}
             </p>
             <Styled.h3 sx={{ marginBottom: '8px' }}>{title}</Styled.h3>
-            <p>{description}</p>
+            <p sx={{ color: 'gray' }}>{description}</p>
         </section>
-        <Link
-            sx={{
-                backgroundColor: 'primary',
-                color: 'highlight',
-                fontWeight: 'bold',
-                padding: '.75rem 1.25rem',
-                textAlign: 'center',
-            }}
-            to={to}
-        >
-            View Post
-        </Link>
-    </article>
+    </Link>
 )

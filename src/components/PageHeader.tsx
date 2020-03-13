@@ -13,9 +13,9 @@ interface PageHeaderProps {
 export const PageHeader: React.FC<PageHeaderProps> = ({ title, description, tag = 'h1' }) => {
     const Heading = Styled[tag]
     return (
-        <header sx={{ marginBottom: '8px' }}>
-            <Heading sx={{ marginBottom: '8px' }}>{title}</Heading>
-            {description ? <p>{description}</p> : null}
+        <header>
+            <Heading>{title}</Heading>
+            {description ? <p sx={{ color: 'gray', margin: 0 }}>{description}</p> : null}
         </header>
     )
 }

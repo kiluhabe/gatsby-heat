@@ -15,6 +15,7 @@ interface PostProps {
                 title: string
                 description: string
                 image: string
+                date: string
             }
         }
     }
@@ -27,8 +28,8 @@ const Post: React.FC<PostProps> = ({ data }) => {
         <Layout>
             <Seo title={title} description={description} />
             <Container Tag="section">
-                <PageHeader title={title} />
-                <img sx={{ width: '100%', marginTop: '40px', marginBottom: '40px' }} alt={title} src={image} />
+                <PageHeader title={title} description={description} />
+                <img sx={{ width: '100%', marginTop: '32px', marginBottom: '32px' }} alt={title} src={image} />
                 <div dangerouslySetInnerHTML={{ __html: html }} />
             </Container>
         </Layout>

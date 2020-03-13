@@ -5,26 +5,59 @@ import { Layout } from '../components/Layout'
 import { PageHeader } from '../components/PageHeader'
 import { PostCardList } from '../components/PostCardList'
 import { Seo } from '../components/Seo'
+import { graphql } from 'gatsby'
 
-const posts = Array(10)
-    .fill(0)
-    .map(() => ({
-        title: 'hoge',
-        description: 'hoge fuga foo bar',
-        tags: ['foo', 'bar'],
-        picture: 'https://cdn.packhacker.com/2020/01/6dcf4f2a-aer-city-sling-vs-aer-day-sling-2.jpg',
-        to: '/posts',
-    }))
+interface IndexProps {
+    data: {
+        allMarkdownRemark: {
+            edges: [
+                {
+                    node: {
+                        frontmatter: {
+                            title: string
+                            description: string
+                            categories: string[]
+                            image: string
+                            date: string
+                            path: string
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
 
-const IndexPage: React.FC = () => (
+const IndexPage: React.FC<IndexProps> = ({ data }) => (
     <Layout>
         <Seo title="Home" />
         <Hero title="Welcome!" filename="hero.jpg" />
         <Container Tag="section">
             <PageHeader title="Recently Posts" />
-            <PostCardList posts={posts} />
+            <PostCardList posts={data.allMarkdownRemark.edges.map(({ node }) => node.frontmatter)} />
         </Container>
     </Layout>
 )
+
+export const query = graphql`
+    query {
+        allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
+            edges {
+                node {
+                    id
+                    excerpt(pruneLength: 250)
+                    frontmatter {
+                        date(formatString: "MMMM DD, YYYY")
+                        path
+                        title
+                        categories
+                        image
+                        description
+                    }
+                }
+            }
+        }
+    }
+`
 
 export default IndexPage
