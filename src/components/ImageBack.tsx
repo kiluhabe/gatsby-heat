@@ -1,19 +1,16 @@
 import * as React from 'react'
 /** @jsx jsx */
-import { Styled, jsx } from 'theme-ui'
-import { Container } from './Container'
+import { jsx } from 'theme-ui'
 
-interface HeroProps {
-    title: string
+interface ImageBackProps {
     image: string
-    description?: string
 }
 
-const HeroInner: React.FC<{ image: string }> = ({ children, image }) => {
+export const ImageBack: React.FC<ImageBackProps> = ({ children, image }) => {
     return (
-        <section
+        <div
             sx={{
-                height: '250px',
+                width: '100%',
                 backgroundImage: `url(${image})`,
                 backgroundSize: 'cover',
                 backgroundAttachment: 'fixed',
@@ -33,20 +30,10 @@ const HeroInner: React.FC<{ image: string }> = ({ children, image }) => {
                     right: 0,
                     left: 0,
                     zIndex: -2,
-                    background: 'rgba(0, 0, 0, 0.2)',
+                    background: 'rgba(0, 0, 0, 0.4)',
                 }}
             />
             {children}
-        </section>
-    )
-}
-
-export const Hero: React.FC<HeroProps> = ({ title, description, image }) => {
-    const Tag: React.FC = ({ children }) => <HeroInner image={image}>{children}</HeroInner>
-    return (
-        <Container Tag={Tag}>
-            <Styled.h1 sx={{ color: 'background' }}>{title}</Styled.h1>
-            {description ? <Styled.p>{description}</Styled.p> : null}
-        </Container>
+        </div>
     )
 }

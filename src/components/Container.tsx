@@ -2,10 +2,8 @@ import * as React from 'react'
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 
-type ContainerTag = 'div' | 'section' | 'main'
-
 interface ContainerProps {
-    Tag: ContainerTag | React.ComponentType
+    Tag: string | React.ComponentType
 }
 
 export const Container: React.FC<ContainerProps> = ({ Tag, children }) => {

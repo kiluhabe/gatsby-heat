@@ -1,7 +1,11 @@
 import * as React from 'react'
+/** @jsx jsx */
+import { Styled, jsx } from 'theme-ui'
 import { Container } from '../components/Container'
-import { Hero } from '../components/Hero'
-import { Layout } from '../components/Layout'
+import { GlobalFooter } from '../components/GlobalFooter'
+import { GlobalHeader } from '../components/GlobalHeader'
+import { GlobalStyle } from '../components/GlobalStyle'
+import { ImageBack } from '../components/ImageBack'
 import { PageHeader } from '../components/PageHeader'
 import { PostCardList } from '../components/PostCardList'
 import { Seo } from '../components/Seo'
@@ -34,17 +38,34 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
         path: `/posts/${node.id}`,
     }))
     return (
-        <Layout>
+        <Styled.root>
             <Seo title="Home" />
-            <Hero
-                title="Welcome!"
-                image="https://cdn.packhacker.com/2019/10/80571196-budget-packing-list-flat-lay.jpg"
-            />
-            <Container Tag="section">
-                <PageHeader title="Recently Posts" />
-                <PostCardList posts={posts} />
-            </Container>
-        </Layout>
+            <GlobalStyle />
+            <ImageBack image="https://cdn.packhacker.com/2019/10/80571196-budget-packing-list-flat-lay.jpg">
+                <GlobalHeader color="background" />
+                <div
+                    sx={{
+                        color: 'background',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: '216px',
+                        marginBottom: '288px',
+                    }}
+                >
+                    <span sx={{ fontSize: '36px', marginBottom: '8px' }}>Welcome!</span>
+                    <span>Welcome to Gatsby Heat Theme!</span>
+                </div>
+            </ImageBack>
+            <main sx={{ flex: 1 }}>
+                <Container Tag="section">
+                    <PageHeader title="Recently Posts" />
+                    <PostCardList posts={posts} />
+                </Container>
+            </main>
+            <GlobalFooter />
+        </Styled.root>
     )
 }
 
