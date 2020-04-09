@@ -1,11 +1,13 @@
 import * as React from 'react'
 import { Link, graphql } from 'gatsby'
 import { Container } from '../components/Container'
+import Img from 'gatsby-image'
 import { Layout } from '../components/Layout'
 import { PageHeader } from '../components/PageHeader'
 import { Seo } from '../components/Seo'
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
+import { useImage } from '../hooks/useImage'
 
 interface PostProps {
     data: {
@@ -25,6 +27,7 @@ interface PostProps {
 const Post: React.FC<PostProps> = ({ data }) => {
     const { html, frontmatter } = data.markdownRemark
     const { title, description, image, categories } = frontmatter
+    const sizes = useImage(image)
     return (
         <Layout>
             <Seo title={title} description={description} />
@@ -37,7 +40,7 @@ const Post: React.FC<PostProps> = ({ data }) => {
                     ))}
                 </p>
                 <PageHeader title={title} description={description} />
-                <img sx={{ width: '100%', marginTop: '32px', marginBottom: '32px' }} alt={title} src={image} />
+                <Img sx={{ width: '100%', marginTop: '32px', marginBottom: '32px' }} alt={title} sizes={sizes} />
                 <div dangerouslySetInnerHTML={{ __html: html }} />
             </Container>
         </Layout>

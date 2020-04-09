@@ -6,7 +6,6 @@ import { GlobalFooter } from '../components/GlobalFooter'
 import { GlobalHeader } from '../components/GlobalHeader'
 import { GlobalStyle } from '../components/GlobalStyle'
 import { ImageBack } from '../components/ImageBack'
-import { PageHeader } from '../components/PageHeader'
 import { PostCardList } from '../components/PostCardList'
 import { Seo } from '../components/Seo'
 import { graphql } from 'gatsby'
@@ -41,7 +40,7 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
         <Styled.root>
             <Seo title="Home" />
             <GlobalStyle />
-            <ImageBack image="https://cdn.packhacker.com/2019/10/80571196-budget-packing-list-flat-lay.jpg">
+            <ImageBack src="hero.jpg">
                 <GlobalHeader color="background" />
                 <div
                     sx={{
@@ -60,7 +59,6 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
             </ImageBack>
             <main sx={{ flex: 1 }}>
                 <Container Tag="section">
-                    <PageHeader title="Recently Posts" />
                     <PostCardList posts={posts} />
                 </Container>
             </main>

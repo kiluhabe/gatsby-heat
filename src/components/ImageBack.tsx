@@ -1,19 +1,22 @@
 import * as React from 'react'
+import BackgroundImage from 'gatsby-background-image'
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
+import { useImage } from '../hooks/useImage'
 
 interface ImageBackProps {
-    image: string
+    src: string
 }
 
-export const ImageBack: React.FC<ImageBackProps> = ({ children, image }) => {
+export const ImageBack: React.FC<ImageBackProps> = ({ children, src }) => {
+    const sizes = useImage(src)
     return (
-        <div
-            sx={{
+        <BackgroundImage
+            style={{
                 width: '100%',
-                backgroundImage: `url(${image})`,
                 backgroundSize: 'cover',
                 backgroundAttachment: 'fixed',
+                backgroundPositionX: 'center',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -21,6 +24,7 @@ export const ImageBack: React.FC<ImageBackProps> = ({ children, image }) => {
                 zIndex: -3,
                 position: 'relative',
             }}
+            sizes={sizes}
         >
             <div
                 sx={{
@@ -34,6 +38,6 @@ export const ImageBack: React.FC<ImageBackProps> = ({ children, image }) => {
                 }}
             />
             {children}
-        </div>
+        </BackgroundImage>
     )
 }
