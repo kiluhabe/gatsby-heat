@@ -9,9 +9,9 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     switch (node.internal.type) {
         case 'MarkdownRemark': {
             const { permalink, layout } = node.frontmatter
-            const { relativePath } = getNode(node.parent)
+            const { relativePath, sourceInstanceName } = getNode(node.parent)
 
-            let slug = !permalink ? `/${relativePath.replace('.md', '')}/` : permalink
+            const slug = !permalink ? `/${relativePath.replace('.md', '')}/` : permalink
 
             createNodeField({
                 node,
@@ -24,29 +24,22 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
                 name: 'layout',
                 value: layout || '',
             })
+
+            createNodeField({
+                node,
+                name: 'sourceInstanceName',
+                value: sourceInstanceName || '',
+            })
         }
     }
-}
-
-function extractCategories(allMarkdownRemark) {
-    const categories = allMarkdownRemark.edges.map(({ node }) => {
-        return node.frontmatter.categories.map(category => category)
-    })
-    return uniq(flatten(categories))
-}
-
-function idsOf(category, allMarkdownRemark) {
-    return allMarkdownRemark.edges
-        .filter(({ node }) => node.frontmatter.categories.includes(category))
-        .map(({ node }) => node.id)
 }
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
 
-    const allMarkdown = await graphql(`
+    const allPostsMarkdown = await graphql(`
         {
-            allMarkdownRemark(limit: 1000) {
+            allMarkdownRemark(filter: { fields: { sourceInstanceName: { eq: "posts" } } }) {
                 edges {
                     node {
                         id
@@ -62,30 +55,49 @@ exports.createPages = async ({ graphql, actions }) => {
             }
         }
     `)
+    const allCategoriesMarkdown = await graphql(`
+        {
+            allMarkdownRemark(filter: { fields: { sourceInstanceName: { eq: "categories" } } }) {
+                edges {
+                    node {
+                        id
+                        frontmatter {
+                            name
+                        }
+                    }
+                }
+            }
+        }
+    `)
 
-    if (allMarkdown.errors) {
-        console.error(allMarkdown.errors)
-        throw new Error(allMarkdown.errors)
+    if (allPostsMarkdown.errors) {
+        console.error(allPostsMarkdown.errors)
+        throw new Error(allPostsMarkdown.errors)
+    }
+    if (allCategoriesMarkdown.errors) {
+        console.error(allCategoriesMarkdown.errors)
+        throw new Error(allCategoriesMarkdown.errors)
     }
 
-    allMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
-        const { id } = node
-        const { slug, layout } = node.fields
+    allPostsMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
+        const { id, fields } = node
+        const { slug } = fields
         createPage({
             path: `/posts/${id}`,
             component: path.resolve(`./src/templates/post.tsx`),
             context: { slug },
         })
     })
-    const categories = extractCategories(allMarkdown.data.allMarkdownRemark)
-    categories.forEach(category => {
+    allCategoriesMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
+        const { id, frontmatter } = node
+        const { name } = frontmatter
+        const ids = allPostsMarkdown.data.allMarkdownRemark.edges
+            .filter(({ node }) => node.frontmatter.categories.includes(name))
+            .map(({ node }) => node.id)
         createPage({
-            path: `/categories/${category}`,
+            path: `/categories/${id}`,
             component: path.resolve(`./src/templates/posts.tsx`),
-            context: {
-                category,
-                ids: idsOf(category, allMarkdown.data.allMarkdownRemark),
-            },
+            context: { category: name, ids },
         })
     })
 }
