@@ -6,6 +6,7 @@ import { Link } from 'gatsby'
 import { useImage } from '../hooks/useImage'
 
 export interface PostCardProps {
+    id: string
     title: string
     description: string
     categories: string[]
@@ -13,7 +14,7 @@ export interface PostCardProps {
     path: string
 }
 
-export const PostCard: React.FC<PostCardProps> = ({ title, description, categories, image, path }) => {
+export const PostCard: React.FC<PostCardProps> = ({ title, image, path }) => {
     const sizes = useImage(image)
     return (
         <article
@@ -25,8 +26,6 @@ export const PostCard: React.FC<PostCardProps> = ({ title, description, categori
                 height: '100%',
                 wordWrap: 'break-word',
                 backgroundClip: 'border-box',
-                borderRadius: '.25rem',
-                border: '1px solid rgba(0,0,0,.125)',
                 textDecoration: 'none',
             }}
         >
@@ -36,37 +35,14 @@ export const PostCard: React.FC<PostCardProps> = ({ title, description, categori
                         width: '100%',
                         maxWidth: '100%',
                         height: 'auto',
-                        borderTopRightRadius: '.25rem',
-                        borderTopLeftRadius: '.25rem',
+                        borderRadius: '.25rem',
                     }}
                     alt={title}
                     sizes={sizes}
                 />
             </Link>
-            <section sx={{ flex: '1 1 auto', padding: '1.25rem' }}>
-                <p>
-                    {categories.map(category => (
-                        <Link sx={{ marginRight: '8px', color: 'gray' }} key={category} to={`/categories/${category}`}>
-                            {category}
-                        </Link>
-                    ))}
-                </p>
-                <Link to={path}>
-                    <Styled.h3 sx={{ marginBottom: '8px' }}>{title}</Styled.h3>
-                </Link>
-                <p sx={{ color: 'gray' }}>{description}</p>
-            </section>
-            <Link
-                sx={{
-                    backgroundColor: 'text',
-                    color: 'background',
-                    fontWeight: 'bold',
-                    padding: '.75rem 1.25rem',
-                    textAlign: 'center',
-                }}
-                to={path}
-            >
-                View Post
+            <Link to={path}>
+                <Styled.h3>{title}</Styled.h3>
             </Link>
         </article>
     )

@@ -33,6 +33,7 @@ interface PostsProps {
 const PostsPage: React.FC<PostsProps> = ({ data, pageContext }) => {
     const { category } = pageContext
     const posts = data.allMarkdownRemark.edges.map(({ node }) => ({
+        id: node.id,
         ...node.frontmatter,
         path: `/posts/${node.id}`,
     }))

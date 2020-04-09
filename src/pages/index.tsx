@@ -33,6 +33,7 @@ interface IndexProps {
 
 const IndexPage: React.FC<IndexProps> = ({ data }) => {
     const posts = data.allMarkdownRemark.edges.map(({ node }) => ({
+        id: node.id,
         ...node.frontmatter,
         path: `/posts/${node.id}`,
     }))
