@@ -13,23 +13,20 @@ export const PostCardList: React.FC<PostCardListProps> = ({ posts }) => (
             display: 'flex',
             alignItems: 'stretch',
             flexWrap: 'wrap',
-            marginLeft: '-15px',
-            marginRight: '-15px',
-            boxSizing: 'border-box',
+            width: '100%',
         }}
     >
-        {posts.map(post => (
+        {posts.map((post, index) => (
             <Styled.li
                 key={post.title}
                 sx={{
-                    flex: '0 0 33.33333%',
-                    maxWidth: '33.33333%',
+                    flex: ['0 0 100%', '0 0 50%', '0 0 33.33333%'],
+                    maxWidth: ['100%', '50%', '33.33333%'],
                     marginBottom: '2rem',
                     position: 'relative',
                     width: '100%',
-                    paddingRight: '15px',
-                    paddingLeft: '15px',
                     boxSizing: 'border-box',
+                    paddingLeft: [0, !index ? 0 : '15px'],
                 }}
             >
                 <PostCard {...post} />

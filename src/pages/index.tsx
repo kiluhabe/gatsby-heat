@@ -53,8 +53,8 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
                         marginBottom: '288px',
                     }}
                 >
-                    <span sx={{ fontSize: '36px', marginBottom: '8px' }}>Welcome!</span>
-                    <span>Welcome to Gatsby Heat Theme!</span>
+                    <Styled.p sx={{ fontSize: [5, 6, 7], marginBottom: '8px', color: 'background' }}>Welcome!</Styled.p>
+                    <Styled.p sx={{ color: 'background' }}>Welcome to Gatsby Heat Theme!</Styled.p>
                 </div>
             </ImageBack>
             <main sx={{ flex: 1 }}>

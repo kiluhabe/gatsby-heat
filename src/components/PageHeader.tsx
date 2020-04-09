@@ -2,7 +2,7 @@ import * as React from 'react'
 /** @jsx jsx */
 import { Styled, jsx } from 'theme-ui'
 
-type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+type HeadingTag = 'h1' | 'h2' | 'h3'
 
 interface PageHeaderProps {
     title: string
