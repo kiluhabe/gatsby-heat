@@ -9,6 +9,7 @@ import { GlobalStyle } from '../components/GlobalStyle'
 import { Hero } from '../components/Hero'
 import { PostCardList } from '../components/PostCardList'
 import { Seo } from '../components/Seo'
+import { SideContentLayout } from '../components/SideContentLayout'
 import { graphql } from 'gatsby'
 
 interface IndexProps {
@@ -53,15 +54,13 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
     return (
         <Layout>
             <Container Tag="section">
-                <div sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: ['column', 'row'] }}>
-                    <div sx={{ flex: ['0 0 100%', '0 0 70%'] }}>
+                <SideContentLayout>
+                    <React.Fragment>
                         <Styled.h2 sx={{ paddingBottom: '16px', borderBottom: 'solid 1px lightgray' }}>Posts</Styled.h2>
                         <PostCardList posts={posts} />
-                    </div>
-                    <div sx={{ flex: ['0 0 100%', '0 0 25%'] }}>
-                        <CategoryList />
-                    </div>
-                </div>
+                    </React.Fragment>
+                    <CategoryList />
+                </SideContentLayout>
             </Container>
         </Layout>
     )
