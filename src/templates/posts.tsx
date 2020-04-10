@@ -1,6 +1,4 @@
 import * as React from 'react'
-/** @jsx jsx */
-import { Styled, jsx } from 'theme-ui'
 import { CategoryList } from '../components/CategoryList'
 import { Container } from '../components/Container'
 import { Hero } from '../components/Hero'
@@ -9,6 +7,8 @@ import { PostCardList } from '../components/PostCardList'
 import { Seo } from '../components/Seo'
 import { SideContentLayout } from '../components/SideContentLayout'
 import { graphql } from 'gatsby'
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
 
 interface PostsProps {
     data: {
@@ -59,7 +59,6 @@ const PostsPage: React.FC<PostsProps> = ({ data }) => {
             <Container Tag="section">
                 <SideContentLayout>
                     <React.Fragment>
-                        <Styled.h2 sx={{ paddingBottom: '16px', borderBottom: 'solid 1px lightgray' }}>Posts</Styled.h2>
                         <PostCardList posts={posts} />
                     </React.Fragment>
                     <CategoryList />

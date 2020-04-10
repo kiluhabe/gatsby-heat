@@ -23,7 +23,9 @@ export const Hero: React.FC<HeroProps> = ({ title, description, src, children })
                 marginBottom: '288px',
             }}
         >
-            <Styled.p sx={{ fontSize: [5, 6, 7], marginBottom: '8px', color: 'background' }}>{title}</Styled.p>
+            <Styled.h2 sx={{ fontSize: [5, 6, 7], marginBottom: '8px', color: 'background', fontWeight: 'normal' }}>
+                {title}
+            </Styled.h2>
             <Styled.p sx={{ color: 'background' }}>{description}</Styled.p>
         </div>
     </ImageBack>

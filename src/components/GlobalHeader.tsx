@@ -17,6 +17,8 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ color }) => {
                 maxWidth: '960px',
                 width: '100%',
                 boxSizing: 'border-box',
+                paddingRight: '16px',
+                paddingLeft: '16px',
             }}
         >
             <nav sx={{ display: 'flex', alignItems: 'center' }}>

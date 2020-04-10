@@ -15,6 +15,8 @@ export const Container: React.FC<ContainerProps> = ({ Tag, children }) => {
                 paddingBottom: '40px',
                 marginRight: 'auto',
                 marginLeft: 'auto',
+                paddingRight: '16px',
+                paddingLeft: '16px',
                 maxWidth: '960px',
                 width: '100%',
                 boxSizing: 'border-box',
