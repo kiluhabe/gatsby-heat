@@ -1,0 +1,33 @@
+name: Node.js CI
+
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+    - run: yarn
+    - run: yarn lint
+      env:
+        CI: true
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+    - run: yarn
+    - run: yarn build
+      env:
+        CI: true
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+    - run: yarn
+    - run: yarn test
+      env:
+        CI: true
