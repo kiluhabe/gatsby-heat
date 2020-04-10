@@ -1,5 +1,5 @@
 ---
-name: category3
+title: category3
 description: This is category 3.
 image: category.jpg
 ---

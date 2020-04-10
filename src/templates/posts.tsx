@@ -1,67 +1,66 @@
 import * as React from 'react'
-import { CategoryList } from '../components/CategoryList'
+/** @jsx jsx */
+import { Styled, jsx } from 'theme-ui'
 import { Container } from '../components/Container'
 import { Hero } from '../components/Hero'
 import { Layout } from '../components/Layout'
 import { PostCardList } from '../components/PostCardList'
 import { Seo } from '../components/Seo'
 import { SideContentLayout } from '../components/SideContentLayout'
+import { TinyContentList } from '../components/TinyContentList'
 import { graphql } from 'gatsby'
-/** @jsx jsx */
-import { jsx } from 'theme-ui'
 
 interface PostsProps {
     data: {
         posts: {
             edges: [
                 {
-                    node: {
-                        id: string
-                        frontmatter: {
-                            title: string
-                            description: string
-                            categories: string[]
-                            image: string
-                            date: string
-                        }
-                    }
+                    node: PostNode
                 }
             ]
         }
         categories: {
             edges: [
                 {
-                    node: {
-                        id: string
-                        frontmatter: {
-                            name: string
-                            description: string
-                            image: string
-                        }
-                    }
+                    node: CategoryNode
                 }
             ]
         }
     }
+    pageContext: {
+        categoryId: string
+    }
 }
 
-const PostsPage: React.FC<PostsProps> = ({ data }) => {
-    const { name, description, image } = data.categories.edges[0].node.frontmatter
+const PostsPage: React.FC<PostsProps> = ({ data, pageContext }) => {
     const posts = data.posts.edges.map(({ node }) => ({
         id: node.id,
         ...node.frontmatter,
         path: `/posts/${node.id}`,
     }))
+    const categories = data.categories.edges.map(({ node }) => ({
+        id: node.id,
+        ...node.frontmatter,
+    }))
+    const { title, description, image } = categories.find(({ id }) => id === pageContext.categoryId) ?? {}
+    if (!title || !description || !image) {
+        throw new Error()
+    }
     return (
         <Layout>
-            <Seo title={name} />
-            <Hero title={name} description={description} src={image} />
+            <Seo title={title} />
+            <Hero title={title} description={description} src={image} />
             <Container Tag="section">
                 <SideContentLayout>
                     <React.Fragment>
                         <PostCardList posts={posts} />
                     </React.Fragment>
-                    <CategoryList />
+                    <React.Fragment>
+                        <Styled.h2 sx={{ paddingBottom: '16px', borderBottom: 'solid 1px lightgray' }}>
+                            Categories
+                        </Styled.h2>
+                        <TinyContentList contents={categories} />
+                    </React.Fragment>
                 </SideContentLayout>
             </Container>
         </Layout>
@@ -69,8 +68,8 @@ const PostsPage: React.FC<PostsProps> = ({ data }) => {
 }
 
 export const query = graphql`
-    query CategoryListQuery($post_ids: [String]!, $category_id: String!) {
-        posts: allMarkdownRemark(filter: { id: { in: $post_ids }, fields: { sourceInstanceName: { eq: "posts" } } }) {
+    query CategoryListQuery($postIds: [String]!) {
+        posts: allMarkdownRemark(filter: { id: { in: $postIds }, fields: { sourceInstanceName: { eq: "posts" } } }) {
             edges {
                 node {
                     id
@@ -84,14 +83,12 @@ export const query = graphql`
                 }
             }
         }
-        categories: allMarkdownRemark(
-            filter: { id: { eq: $category_id }, fields: { sourceInstanceName: { eq: "categories" } } }
-        ) {
+        categories: allMarkdownRemark(filter: { fields: { sourceInstanceName: { eq: "categories" } } }) {
             edges {
                 node {
                     id
                     frontmatter {
-                        name
+                        title
                         description
                         image
                     }

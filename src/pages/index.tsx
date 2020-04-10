@@ -1,7 +1,6 @@
 import * as React from 'react'
 /** @jsx jsx */
 import { Styled, jsx } from 'theme-ui'
-import { CategoryList } from '../components/CategoryList'
 import { Container } from '../components/Container'
 import { GlobalFooter } from '../components/GlobalFooter'
 import { GlobalHeader } from '../components/GlobalHeader'
@@ -10,23 +9,22 @@ import { Hero } from '../components/Hero'
 import { PostCardList } from '../components/PostCardList'
 import { Seo } from '../components/Seo'
 import { SideContentLayout } from '../components/SideContentLayout'
+import { TinyContentList } from '../components/TinyContentList'
 import { graphql } from 'gatsby'
 
 interface IndexProps {
     data: {
-        allMarkdownRemark: {
+        posts: {
             edges: [
                 {
-                    node: {
-                        id: string
-                        frontmatter: {
-                            title: string
-                            description: string
-                            categories: string[]
-                            image: string
-                            date: string
-                        }
-                    }
+                    node: PostNode
+                }
+            ]
+        }
+        categories: {
+            edges: [
+                {
+                    node: CategoryNode
                 }
             ]
         }
@@ -46,10 +44,14 @@ const Layout: React.FC = ({ children }) => (
 )
 
 const IndexPage: React.FC<IndexProps> = ({ data }) => {
-    const posts = data.allMarkdownRemark.edges.map(({ node }) => ({
+    const posts = data.posts.edges.map(({ node }) => ({
         id: node.id,
         ...node.frontmatter,
         path: `/posts/${node.id}`,
+    }))
+    const categories = data.categories.edges.map(({ node }) => ({
+        id: node.id,
+        ...node.frontmatter,
     }))
     return (
         <Layout>
@@ -59,7 +61,12 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
                         <Styled.h2 sx={{ paddingBottom: '16px', borderBottom: 'solid 1px lightgray' }}>Posts</Styled.h2>
                         <PostCardList posts={posts} />
                     </React.Fragment>
-                    <CategoryList />
+                    <React.Fragment>
+                        <Styled.h2 sx={{ paddingBottom: '16px', borderBottom: 'solid 1px lightgray' }}>
+                            Categories
+                        </Styled.h2>
+                        <TinyContentList contents={categories} />
+                    </React.Fragment>
                 </SideContentLayout>
             </Container>
         </Layout>
@@ -68,7 +75,7 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
 
 export const query = graphql`
     query {
-        allMarkdownRemark(
+        posts: allMarkdownRemark(
             sort: { order: DESC, fields: [frontmatter___date] }
             filter: { fields: { sourceInstanceName: { eq: "posts" } } }
         ) {
@@ -82,6 +89,21 @@ export const query = graphql`
                         categories
                         image
                         description
+                    }
+                }
+            }
+        }
+        categories: allMarkdownRemark(
+            sort: { order: DESC, fields: [frontmatter___date] }
+            filter: { fields: { sourceInstanceName: { eq: "categories" } } }
+        ) {
+            edges {
+                node {
+                    id
+                    frontmatter {
+                        title
+                        description
+                        image
                     }
                 }
             }

@@ -62,7 +62,7 @@ exports.createPages = async ({ graphql, actions }) => {
                     node {
                         id
                         frontmatter {
-                            name
+                            title
                         }
                     }
                 }
@@ -90,14 +90,14 @@ exports.createPages = async ({ graphql, actions }) => {
     })
     allCategoriesMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
         const { id, frontmatter } = node
-        const { name } = frontmatter
-        const post_ids = allPostsMarkdown.data.allMarkdownRemark.edges
-            .filter(({ node }) => node.frontmatter.categories.includes(name))
+        const { title } = frontmatter
+        const postIds = allPostsMarkdown.data.allMarkdownRemark.edges
+            .filter(({ node }) => node.frontmatter.categories.includes(title))
             .map(({ node }) => node.id)
         createPage({
             path: `/categories/${id}`,
             component: path.resolve(`./src/templates/posts.tsx`),
-            context: { category_id: id, post_ids },
+            context: { categoryId: id, postIds },
         })
     })
 }

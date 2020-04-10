@@ -14,31 +14,14 @@ interface PostProps {
         posts: {
             edges: [
                 {
-                    node: {
-                        id: string
-                        html: string
-                        frontmatter: {
-                            title: string
-                            description: string
-                            categories: string[]
-                            image: string
-                            date: string
-                        }
-                    }
+                    node: PostNode
                 }
             ]
         }
         categories: {
             edges: [
                 {
-                    node: {
-                        id: string
-                        frontmatter: {
-                            name: string
-                            description: string
-                            image: string
-                        }
-                    }
+                    node: CategoryNode
                 }
             ]
         }
@@ -118,13 +101,16 @@ export const query = graphql`
             }
         }
         categories: allMarkdownRemark(
-            filter: { frontmatter: { name: { in: $categories } }, fields: { sourceInstanceName: { eq: "categories" } } }
+            filter: {
+                frontmatter: { title: { in: $categories } }
+                fields: { sourceInstanceName: { eq: "categories" } }
+            }
         ) {
             edges {
                 node {
                     id
                     frontmatter {
-                        name
+                        title
                         description
                         image
                     }
