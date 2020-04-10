@@ -23,7 +23,7 @@
         "gatsby-transformer-remark": "^2.6.48",
         "gatsby-transformer-sharp": "^2.3.7",
         "intersection-observer": "^0.7.0",
-        "ramda": "^0.26.1",
+        "ramda": "^0.27.0",
         "react": "^16.13.1",
         "react-dom": "^16.12.0",
         "react-helmet": "^5.2.1",
