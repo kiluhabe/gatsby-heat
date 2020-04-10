@@ -33,6 +33,10 @@ const ownTheme: Theme = {
             ...heading,
             fontSize: [1, 2, 3],
         },
+        h4: {
+            ...heading,
+            fontSize: [0, 1, 2],
+        },
         p: {
             color: 'text',
             fontFamily: 'body',

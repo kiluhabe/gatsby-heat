@@ -1,6 +1,7 @@
 import * as React from 'react'
 /** @jsx jsx */
 import { Styled, jsx } from 'theme-ui'
+import { CategoryList } from '../components/CategoryList'
 import { Container } from '../components/Container'
 import { GlobalFooter } from '../components/GlobalFooter'
 import { GlobalHeader } from '../components/GlobalHeader'
@@ -52,7 +53,15 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
     return (
         <Layout>
             <Container Tag="section">
-                <PostCardList posts={posts} />
+                <div sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: ['column', 'row'] }}>
+                    <div sx={{ flex: ['0 0 100%', '0 0 70%'] }}>
+                        <Styled.h2 sx={{ paddingBottom: '16px', borderBottom: 'solid 1px lightgray' }}>Posts</Styled.h2>
+                        <PostCardList posts={posts} />
+                    </div>
+                    <div sx={{ flex: ['0 0 100%', '0 0 20%'] }}>
+                        <CategoryList />
+                    </div>
+                </div>
             </Container>
         </Layout>
     )
