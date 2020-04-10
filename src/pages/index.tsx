@@ -36,7 +36,7 @@ const Layout: React.FC = ({ children }) => (
     <Styled.root>
         <Seo title="Home" />
         <GlobalStyle />
-        <Hero title="Welcome!" description="Welcome To Gatsby Heat!">
+        <Hero title="Welcome!" description="Welcome To Gatsby Heat!" src="hero.jpg">
             <GlobalHeader color="background" />
         </Hero>
         <main sx={{ flex: 1 }}>{children}</main>

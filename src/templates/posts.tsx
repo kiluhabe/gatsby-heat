@@ -1,14 +1,17 @@
 import * as React from 'react'
+/** @jsx jsx */
+import { Styled, jsx } from 'theme-ui'
+import { CategoryList } from '../components/CategoryList'
 import { Container } from '../components/Container'
+import { Hero } from '../components/Hero'
 import { Layout } from '../components/Layout'
-import { PageHeader } from '../components/PageHeader'
 import { PostCardList } from '../components/PostCardList'
 import { Seo } from '../components/Seo'
 import { graphql } from 'gatsby'
 
 interface PostsProps {
     data: {
-        allMarkdownRemark: {
+        posts: {
             edges: [
                 {
                     node: {
@@ -24,33 +27,52 @@ interface PostsProps {
                 }
             ]
         }
-    }
-    pageContext: {
-        category: string
+        categories: {
+            edges: [
+                {
+                    node: {
+                        id: string
+                        frontmatter: {
+                            name: string
+                            description: string
+                            image: string
+                        }
+                    }
+                }
+            ]
+        }
     }
 }
 
-const PostsPage: React.FC<PostsProps> = ({ data, pageContext }) => {
-    const { category } = pageContext
-    const posts = data.allMarkdownRemark.edges.map(({ node }) => ({
+const PostsPage: React.FC<PostsProps> = ({ data }) => {
+    const { name, description, image } = data.categories.edges[0].node.frontmatter
+    const posts = data.posts.edges.map(({ node }) => ({
         id: node.id,
         ...node.frontmatter,
         path: `/posts/${node.id}`,
     }))
     return (
         <Layout>
-            <Seo title={category} />
+            <Seo title={name} />
+            <Hero title={name} description={description} src={image} />
             <Container Tag="section">
-                <PageHeader title={category} />
-                <PostCardList posts={posts} />
+                <div sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: ['column', 'row'] }}>
+                    <div sx={{ flex: ['0 0 100%', '0 0 70%'] }}>
+                        <Styled.h2 sx={{ paddingBottom: '16px', borderBottom: 'solid 1px lightgray' }}>Posts</Styled.h2>
+                        <PostCardList posts={posts} />
+                    </div>
+                    <div sx={{ flex: ['0 0 100%', '0 0 20%'] }}>
+                        <CategoryList />
+                    </div>
+                </div>
             </Container>
         </Layout>
     )
 }
 
 export const query = graphql`
-    query CategoryListQuery($ids: [String]!) {
-        allMarkdownRemark(filter: { id: { in: $ids } }) {
+    query CategoryListQuery($post_ids: [String]!, $category_id: String!) {
+        posts: allMarkdownRemark(filter: { id: { in: $post_ids } }) {
             edges {
                 node {
                     id
@@ -60,6 +82,18 @@ export const query = graphql`
                         categories
                         image
                         date
+                    }
+                }
+            }
+        }
+        categories: allMarkdownRemark(filter: { id: { eq: $category_id } }) {
+            edges {
+                node {
+                    id
+                    frontmatter {
+                        name
+                        description
+                        image
                     }
                 }
             }

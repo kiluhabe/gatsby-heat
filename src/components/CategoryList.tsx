@@ -45,18 +45,18 @@ const ComponentUnit: React.FC<ComponentUnitProps> = ({ id, frontmatter }) => {
                         display: ['block', 'none', 'block'],
                         marginRight: '8px',
                         marginTop: '4px',
-                        backgroundColor: 'black'
+                        backgroundColor: 'black',
                     }}
                     sizes={sizes}
                     alt={name}
-                />}
+                />
                 <div>
-                    <Styled.p sx={{  margin: 0, fontSize: [2, 1, 2] }}>{name}</Styled.p>
+                    <Styled.p sx={{ margin: 0, fontSize: [2, 1, 2] }}>{name}</Styled.p>
                     <Styled.p
                         sx={{
                             margin: 0,
                             color: 'darkgray',
-                            fontSize: [0,0,0],
+                            fontSize: [0, 0, 0],
                             display: ['inline', 'none', 'inline'],
                         }}
                     >

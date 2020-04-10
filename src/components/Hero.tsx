@@ -6,10 +6,11 @@ import { ImageBack } from '../components/ImageBack'
 interface HeroProps {
     title: string
     description: string
+    src: string
 }
 
-export const Hero: React.FC<HeroProps> = ({ title, description, children }) => (
-    <ImageBack src="hero.jpg">
+export const Hero: React.FC<HeroProps> = ({ title, description, src, children }) => (
+    <ImageBack src={src}>
         {children}
         <div
             sx={{
