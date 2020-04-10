@@ -13,11 +13,9 @@ export const Container: React.FC<ContainerProps> = ({ Tag, children }) => {
                 display: 'block',
                 paddingTop: '40px',
                 paddingBottom: '40px',
-                paddingLeft: '15px',
-                paddingRight: '15px',
                 marginRight: 'auto',
                 marginLeft: 'auto',
-                maxWidth: '1140px',
+                maxWidth: '960px',
                 width: '100%',
                 boxSizing: 'border-box',
             }}

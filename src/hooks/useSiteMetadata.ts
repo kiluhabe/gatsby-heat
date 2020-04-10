@@ -18,6 +18,8 @@ export function useSiteMetadata(): Partial<{ site: Site }> {
                 siteMetadata {
                     title
                     description
+                    author
+                    siteUrl
                 }
             }
         }

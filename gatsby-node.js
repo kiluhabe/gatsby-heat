@@ -80,12 +80,12 @@ exports.createPages = async ({ graphql, actions }) => {
     }
 
     allPostsMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
-        const { id, fields } = node
-        const { slug } = fields
+        const { id, frontmatter } = node
+        const { categories } = frontmatter
         createPage({
             path: `/posts/${id}`,
             component: path.resolve(`./src/templates/post.tsx`),
-            context: { slug },
+            context: { id, categories },
         })
     })
     allCategoriesMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
@@ -97,7 +97,7 @@ exports.createPages = async ({ graphql, actions }) => {
         createPage({
             path: `/categories/${id}`,
             component: path.resolve(`./src/templates/posts.tsx`),
-          context: { category_id: id, post_ids },
+            context: { category_id: id, post_ids },
         })
     })
 }

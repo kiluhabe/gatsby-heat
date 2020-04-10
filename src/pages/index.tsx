@@ -58,7 +58,7 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
                         <Styled.h2 sx={{ paddingBottom: '16px', borderBottom: 'solid 1px lightgray' }}>Posts</Styled.h2>
                         <PostCardList posts={posts} />
                     </div>
-                    <div sx={{ flex: ['0 0 100%', '0 0 20%'] }}>
+                    <div sx={{ flex: ['0 0 100%', '0 0 25%'] }}>
                         <CategoryList />
                     </div>
                 </div>

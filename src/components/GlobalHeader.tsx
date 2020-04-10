@@ -13,10 +13,8 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ color }) => {
     return (
         <header
             sx={{
-                paddingLeft: '15px',
-                paddingRight: '15px',
                 margin: 'auto',
-                maxWidth: '1140px',
+                maxWidth: '960px',
                 width: '100%',
                 boxSizing: 'border-box',
             }}

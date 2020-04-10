@@ -61,7 +61,7 @@ const PostsPage: React.FC<PostsProps> = ({ data }) => {
                         <Styled.h2 sx={{ paddingBottom: '16px', borderBottom: 'solid 1px lightgray' }}>Posts</Styled.h2>
                         <PostCardList posts={posts} />
                     </div>
-                    <div sx={{ flex: ['0 0 100%', '0 0 20%'] }}>
+                    <div sx={{ flex: ['0 0 100%', '0 0 25%'] }}>
                         <CategoryList />
                     </div>
                 </div>
@@ -72,7 +72,7 @@ const PostsPage: React.FC<PostsProps> = ({ data }) => {
 
 export const query = graphql`
     query CategoryListQuery($post_ids: [String]!, $category_id: String!) {
-        posts: allMarkdownRemark(filter: { id: { in: $post_ids } }) {
+        posts: allMarkdownRemark(filter: { id: { in: $post_ids }, fields: { sourceInstanceName: { eq: "posts" } } }) {
             edges {
                 node {
                     id
@@ -86,7 +86,9 @@ export const query = graphql`
                 }
             }
         }
-        categories: allMarkdownRemark(filter: { id: { eq: $category_id } }) {
+        categories: allMarkdownRemark(
+            filter: { id: { eq: $category_id }, fields: { sourceInstanceName: { eq: "categories" } } }
+        ) {
             edges {
                 node {
                     id

@@ -1,39 +1,99 @@
 import * as React from 'react'
+/** @jsx jsx */
+import { Styled, jsx } from 'theme-ui'
 import { Container } from '../components/Container'
 import Img from 'gatsby-image'
 import { Layout } from '../components/Layout'
-import { PageHeader } from '../components/PageHeader'
 import { Seo } from '../components/Seo'
+import { Share } from '../components/Share'
 import { graphql } from 'gatsby'
-/** @jsx jsx */
-import { jsx } from 'theme-ui'
 import { useImage } from '../hooks/useImage'
 
 interface PostProps {
     data: {
-        markdownRemark: {
-            html: string
-            frontmatter: {
-                title: string
-                description: string
-                categories: string[]
-                image: string
-                date: string
-            }
+        posts: {
+            edges: [
+                {
+                    node: {
+                        id: string
+                        html: string
+                        frontmatter: {
+                            title: string
+                            description: string
+                            categories: string[]
+                            image: string
+                            date: string
+                        }
+                    }
+                }
+            ]
+        }
+        categories: {
+            edges: [
+                {
+                    node: {
+                        id: string
+                        frontmatter: {
+                            name: string
+                            description: string
+                            image: string
+                        }
+                    }
+                }
+            ]
         }
     }
 }
 
 const Post: React.FC<PostProps> = ({ data }) => {
-    const { html, frontmatter } = data.markdownRemark
-    const { title, description, image } = frontmatter
+    const { html, frontmatter, id } = data.posts.edges[0].node
+    const { title, description, image, date } = frontmatter
     const sizes = useImage(image)
     return (
         <Layout>
             <Seo title={title} description={description} />
             <Container Tag="section">
-                <PageHeader title={title} description={description} />
-                <Img sx={{ width: '100%', marginTop: '32px', marginBottom: '32px' }} alt={title} sizes={sizes} />
+                <Img
+                    sx={{
+                        width: '100%',
+                        marginBottom: '32px',
+                        marginRight: 'auto',
+                        marginLeft: 'auto',
+                        borderRadius: '.25rem',
+                    }}
+                    alt={title}
+                    sizes={sizes}
+                />
+                <header
+                    sx={{
+                        marginBottom: '64px',
+                    }}
+                >
+                    <Styled.h1>{title}</Styled.h1>
+                    <Styled.p
+                        sx={{
+                            color: 'gray',
+                            marginBottom: '32px',
+                            backgroundColor: '#f7f7f7',
+                            padding: '16px',
+                            borderRadius: '.25rem',
+                        }}
+                    >
+                        {description}
+                    </Styled.p>
+                    <time
+                        sx={{
+                            display: 'block',
+                            fontSize: 0,
+                            color: 'lightgray',
+                            textAlign: 'right',
+                        }}
+                        dateTime={date}
+                    >
+                        {new Date(date).toDateString()}
+                    </time>
+                    <Share path={`/posts/${id}`} />
+                </header>
                 <div dangerouslySetInnerHTML={{ __html: html }} />
             </Container>
         </Layout>
@@ -41,14 +101,34 @@ const Post: React.FC<PostProps> = ({ data }) => {
 }
 
 export const query = graphql`
-    query BlogPostQuery($slug: String!) {
-        markdownRemark(fields: { slug: { eq: $slug }, sourceInstanceName: { eq: "posts" } }) {
-            html
-            frontmatter {
-                title
-                description
-                categories
-                image
+    query BlogPostQuery($id: String!, $categories: [String]!) {
+        posts: allMarkdownRemark(filter: { id: { eq: $id }, fields: { sourceInstanceName: { eq: "posts" } } }) {
+            edges {
+                node {
+                    id
+                    html
+                    frontmatter {
+                        title
+                        description
+                        categories
+                        image
+                        date
+                    }
+                }
+            }
+        }
+        categories: allMarkdownRemark(
+            filter: { frontmatter: { name: { in: $categories } }, fields: { sourceInstanceName: { eq: "categories" } } }
+        ) {
+            edges {
+                node {
+                    id
+                    frontmatter {
+                        name
+                        description
+                        image
+                    }
+                }
             }
         }
     }
