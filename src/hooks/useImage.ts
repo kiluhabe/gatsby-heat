@@ -13,7 +13,7 @@ type ImageEdge = {
 export function useImage(filename: string): FluidObject | undefined {
     const { images } = useStaticQuery(graphql`
         query {
-            images: allFile {
+            images: allFile(filter: { sourceInstanceName: { eq: "images" } }) {
                 edges {
                     node {
                         relativePath
