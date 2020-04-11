@@ -9,6 +9,10 @@
 </p>
 
 <p align="center">
+    <img src="https://i.imgur.com/7ATaBn1.png" alt="Screen Shot" />
+</p>
+
+<p align="center">
   <strong>
     Try a demo of this starter online at <a href="https://gatsby-heat.now.sh/">gatsby-heat.now.sh</a>.
   </strong>
