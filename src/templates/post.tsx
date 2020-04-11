@@ -1,6 +1,7 @@
 import * as React from 'react'
 /** @jsx jsx */
 import { Styled, jsx } from 'theme-ui'
+import { ArticleJsonLd } from '../components/ArticleJsonLd'
 import { Container } from '../components/Container'
 import { Layout } from '../components/Layout'
 import { PostBody } from '../components/PostBody'
@@ -50,6 +51,13 @@ const Post: React.FC<PostProps> = ({ data, pageContext }) => {
     return (
         <Layout>
             <Seo title={frontmatter.title} description={frontmatter.description} amp={true} path={path} />
+            <ArticleJsonLd
+                title={frontmatter.title}
+                description={frontmatter.description}
+                image={frontmatter.image}
+                path={path}
+                date={frontmatter.date}
+            />
             <Container Tag="section">
                 <SideContentLayout>
                     <React.Fragment>
