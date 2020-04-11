@@ -3,9 +3,11 @@ import * as React from 'react'
 import { Styled, jsx } from 'theme-ui'
 import { Container } from '../components/Container'
 import { Layout } from '../components/Layout'
+import { PostBody } from '../components/PostBody'
 import { PostHeader } from '../components/PostHeader'
 import { Seo } from '../components/Seo'
 import { SideContentLayout } from '../components/SideContentLayout'
+import { TableOfContents } from '../components/TableOfContents'
 import { TinyContentList } from '../components/TinyContentList'
 import { getNodeById } from '../nodeUtils/getNodeById'
 import { graphql } from 'gatsby'
@@ -35,7 +37,7 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({ data, pageContext }) => {
-    const { id, html, frontmatter } = getNodeById<PostNode>(data.posts.edges, pageContext.id)
+    const { id, html, frontmatter, tableOfContents } = getNodeById<PostNode>(data.posts.edges, pageContext.id)
     const posts = data.posts.edges
         .filter(({ node }) => intersection(node.frontmatter.categories, pageContext.categories))
         .map(({ node }) => ({
@@ -51,7 +53,9 @@ const Post: React.FC<PostProps> = ({ data, pageContext }) => {
                 <SideContentLayout>
                     <React.Fragment>
                         <PostHeader id={id} {...frontmatter} />
-                        <div sx={{ marginBottom: '128px' }} dangerouslySetInnerHTML={{ __html: html }} />
+                        <Styled.h2 sx={{ margin: 0 }}>Tbale Of Contents</Styled.h2>
+                        <TableOfContents html={tableOfContents} />
+                        <PostBody html={html} />
                     </React.Fragment>
                     <React.Fragment>
                         <Styled.h2 sx={{ paddingBottom: '16px', borderBottom: 'solid 1px lightgray', margin: 0 }}>
@@ -72,6 +76,7 @@ export const query = graphql`
                 node {
                     id
                     html
+                    tableOfContents(absolute: false, pathToSlugField: "id")
                     frontmatter {
                         title
                         description

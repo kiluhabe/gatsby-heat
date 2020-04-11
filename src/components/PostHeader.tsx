@@ -18,7 +18,8 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ id, title, description, 
     return (
         <header
             sx={{
-                marginBottom: '64px',
+                marginBottom: '32px',
+                borderBottom: 'solid 1px lightgray',
             }}
         >
             <Img

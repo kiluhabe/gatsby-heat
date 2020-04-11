@@ -8,7 +8,12 @@ module.exports = {
         `gatsby-plugin-theme-ui`,
         `gatsby-plugin-sitemap`,
         `gatsby-plugin-offline`,
-        `gatsby-transformer-remark`,
+        {
+            resolve: `gatsby-transformer-remark`,
+            options: {
+                plugins: [`gatsby-remark-autolink-headers`],
+            },
+        },
         `gatsby-plugin-webpack-size`,
         {
             resolve: `gatsby-source-filesystem`,

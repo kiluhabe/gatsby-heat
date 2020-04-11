@@ -1,6 +1,7 @@
 declare interface PostNode {
     id: string
     html: string
+    tableOfContents: string
     frontmatter: {
         title: string
         description: string
