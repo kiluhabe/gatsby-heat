@@ -1,6 +1,7 @@
 import * as React from 'react'
 /** @jsx jsx */
 import { Styled, jsx } from 'theme-ui'
+import { CarouselJsonLd } from '../components/CarouselJsonLd'
 import { Container } from '../components/Container'
 import { GlobalFooter } from '../components/GlobalFooter'
 import { GlobalHeader } from '../components/GlobalHeader'
@@ -33,7 +34,6 @@ interface IndexProps {
 
 const Layout: React.FC = ({ children }) => (
     <Styled.root>
-        <Seo title="Home" />
         <GlobalStyle />
         <Hero title="Welcome!" description="Welcome To Gatsby Heat!" src="hero.jpg">
             <GlobalHeader color="background" />
@@ -49,6 +49,7 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
         ...node.frontmatter,
         path: `/posts/${node.id}`,
     }))
+    const paths = posts.map(({ path }) => path)
     const categories = data.categories.edges.map(({ node }) => ({
         id: node.id,
         ...node.frontmatter,
@@ -56,6 +57,8 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
     }))
     return (
         <Layout>
+            <Seo title="Home" />
+            <CarouselJsonLd paths={paths} />
             <Container Tag="section">
                 <SideContentLayout>
                     <React.Fragment>

@@ -1,6 +1,7 @@
 import * as React from 'react'
 /** @jsx jsx */
 import { Styled, jsx } from 'theme-ui'
+import { CarouselJsonLd } from '../components/CarouselJsonLd'
 import { Container } from '../components/Container'
 import { Hero } from '../components/Hero'
 import { Layout } from '../components/Layout'
@@ -39,6 +40,7 @@ const PostsPage: React.FC<PostsProps> = ({ data, pageContext }) => {
         ...node.frontmatter,
         path: `/posts/${node.id}`,
     }))
+    const paths = posts.map(({ path }) => path)
     const categories = data.categories.edges.map(({ node }) => ({
         id: node.id,
         ...node.frontmatter,
@@ -48,7 +50,8 @@ const PostsPage: React.FC<PostsProps> = ({ data, pageContext }) => {
     const { title, description, image } = frontmatter
     return (
         <Layout>
-            <Seo title={title} />
+            <Seo title={title} description={description} />
+            <CarouselJsonLd paths={paths} />
             <Hero title={title} description={description} src={image} />
             <Container Tag="section">
                 <SideContentLayout>
