@@ -11,13 +11,20 @@ type SeoProps = Partial<{
     title: string
     description: string
     lang: string
+    path: string
+    amp: boolean
     meta: Meta[]
 }>
 
-export const Seo: React.FC<SeoProps> = ({ description, title, lang = 'ja', meta = [] }) => {
+export const Seo: React.FC<SeoProps> = ({ description, title, lang = 'ja', path = '', amp = false, meta = [] }) => {
     const { site } = useSiteMetadata()
     const siteTitle = site?.siteMetadata?.title
     const siteDescription = site?.siteMetadata?.description
+
+    const ampHtml = {
+        rel: 'amphtml',
+        href: `${site?.siteMetadata?.siteUrl}/amp${path}`,
+    }
 
     return (
         <Helmet
@@ -26,6 +33,13 @@ export const Seo: React.FC<SeoProps> = ({ description, title, lang = 'ja', meta 
             }}
             title={siteTitle}
             titleTemplate={`${title} | %s`}
+            link={[
+                {
+                    rel: 'canonical',
+                    href: `${site?.siteMetadata?.siteUrl}${path}`,
+                },
+                amp ? ampHtml : {},
+            ]}
             meta={[
                 {
                     name: `description`,

@@ -51,5 +51,14 @@ module.exports = {
         },
         `gatsby-plugin-sharp`,
         `gatsby-transformer-sharp`,
+        {
+            resolve: 'gatsby-plugin-html2amp',
+            options: {
+                files: ['posts/**/index.html'],
+                gaConfigPath: 'gaConfig.json',
+                dist: 'public/amp',
+                optimize: true,
+            },
+        },
     ],
 }

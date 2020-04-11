@@ -38,6 +38,7 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({ data, pageContext }) => {
     const { id, html, frontmatter, tableOfContents } = getNodeById<PostNode>(data.posts.edges, pageContext.id)
+    const path = `/posts/${id}`
     const posts = data.posts.edges
         .filter(({ node }) => intersection(node.frontmatter.categories, pageContext.categories))
         .map(({ node }) => ({
@@ -48,7 +49,7 @@ const Post: React.FC<PostProps> = ({ data, pageContext }) => {
         .slice(0, 10)
     return (
         <Layout>
-            <Seo title={frontmatter.title} description={frontmatter.description} />
+            <Seo title={frontmatter.title} description={frontmatter.description} amp={true} path={path} />
             <Container Tag="section">
                 <SideContentLayout>
                     <React.Fragment>

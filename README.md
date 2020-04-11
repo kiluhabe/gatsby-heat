@@ -41,4 +41,4 @@ yarn lint:fix
 
 ## Author
 
-* [kiluhabe](https://github.com/kiluhabe)
+-   [kiluhabe](https://github.com/kiluhabe)
