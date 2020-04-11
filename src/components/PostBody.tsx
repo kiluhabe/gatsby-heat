@@ -15,7 +15,7 @@ export const PostBody: React.FC<PostBodyProps> = ({ html }) => (
                 lineHeight: 'heading',
                 fontWeight: 'heading',
                 fontSize: [2, 3, 4],
-                marginTop: '48px'
+                marginTop: '48px',
             },
             p: {
                 fontFamily: 'body',
