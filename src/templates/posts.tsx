@@ -8,6 +8,7 @@ import { PostCardList } from '../components/PostCardList'
 import { Seo } from '../components/Seo'
 import { SideContentLayout } from '../components/SideContentLayout'
 import { TinyContentList } from '../components/TinyContentList'
+import { getNodeById } from '../nodeUtils/getNodeById'
 import { graphql } from 'gatsby'
 
 interface PostsProps {
@@ -41,11 +42,10 @@ const PostsPage: React.FC<PostsProps> = ({ data, pageContext }) => {
     const categories = data.categories.edges.map(({ node }) => ({
         id: node.id,
         ...node.frontmatter,
+        path: `/categories/${node.id}`,
     }))
-    const { title, description, image } = categories.find(({ id }) => id === pageContext.categoryId) ?? {}
-    if (!title || !description || !image) {
-        throw new Error()
-    }
+    const { frontmatter } = getNodeById<CategoryNode>(data.categories.edges, pageContext.categoryId)
+    const { title, description, image } = frontmatter
     return (
         <Layout>
             <Seo title={title} />

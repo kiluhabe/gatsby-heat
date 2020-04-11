@@ -2,12 +2,14 @@ import * as React from 'react'
 /** @jsx jsx */
 import { Styled, jsx } from 'theme-ui'
 import { Container } from '../components/Container'
-import Img from 'gatsby-image'
 import { Layout } from '../components/Layout'
+import { PostHeader } from '../components/PostHeader'
 import { Seo } from '../components/Seo'
-import { Share } from '../components/Share'
+import { SideContentLayout } from '../components/SideContentLayout'
+import { TinyContentList } from '../components/TinyContentList'
+import { getNodeById } from '../nodeUtils/getNodeById'
 import { graphql } from 'gatsby'
-import { useImage } from '../hooks/useImage'
+import { intersection } from 'ramda'
 
 interface PostProps {
     data: {
@@ -26,66 +28,46 @@ interface PostProps {
             ]
         }
     }
+    pageContext: {
+        id: string
+        categories: string[]
+    }
 }
 
-const Post: React.FC<PostProps> = ({ data }) => {
-    const { html, frontmatter, id } = data.posts.edges[0].node
-    const { title, description, image, date } = frontmatter
-    const sizes = useImage(image)
+const Post: React.FC<PostProps> = ({ data, pageContext }) => {
+    const { id, html, frontmatter } = getNodeById<PostNode>(data.posts.edges, pageContext.id)
+    const posts = data.posts.edges
+        .filter(({ node }) => intersection(node.frontmatter.categories, pageContext.categories))
+        .map(({ node }) => ({
+            id: node.id,
+            ...node.frontmatter,
+            path: `/posts/${node.id}`,
+        }))
+        .slice(0, 10)
     return (
         <Layout>
-            <Seo title={title} description={description} />
+            <Seo title={frontmatter.title} description={frontmatter.description} />
             <Container Tag="section">
-                <Img
-                    sx={{
-                        width: '100%',
-                        marginBottom: '32px',
-                        marginRight: 'auto',
-                        marginLeft: 'auto',
-                        borderRadius: '.25rem',
-                    }}
-                    alt={title}
-                    sizes={sizes}
-                />
-                <header
-                    sx={{
-                        marginBottom: '64px',
-                    }}
-                >
-                    <Styled.h1>{title}</Styled.h1>
-                    <Styled.p
-                        sx={{
-                            color: 'gray',
-                            marginBottom: '32px',
-                            backgroundColor: '#f7f7f7',
-                            padding: '16px',
-                            borderRadius: '.25rem',
-                        }}
-                    >
-                        {description}
-                    </Styled.p>
-                    <time
-                        sx={{
-                            display: 'block',
-                            fontSize: 0,
-                            color: 'lightgray',
-                            textAlign: 'right',
-                        }}
-                        dateTime={date}
-                    >
-                        {new Date(date).toDateString()}
-                    </time>
-                    <Share path={`/posts/${id}`} />
-                </header>
-                <div dangerouslySetInnerHTML={{ __html: html }} />
+                <SideContentLayout>
+                    <React.Fragment>
+                        <PostHeader id={id} {...frontmatter} />
+                        <div sx={{ marginBottom: '128px' }} dangerouslySetInnerHTML={{ __html: html }} />
+                    </React.Fragment>
+                    <React.Fragment>
+                        <Styled.h2 sx={{ paddingBottom: '16px', borderBottom: 'solid 1px lightgray', margin: 0 }}>
+                            Related Posts
+                        </Styled.h2>
+                        <TinyContentList contents={posts} />
+                    </React.Fragment>
+                </SideContentLayout>
             </Container>
         </Layout>
     )
 }
 
 export const query = graphql`
-    query BlogPostQuery($id: String!, $categories: [String]!) {
-        posts: allMarkdownRemark(filter: { id: { eq: $id }, fields: { sourceInstanceName: { eq: "posts" } } }) {
+    query BlogPostQuery($categories: [String]!) {
+        posts: allMarkdownRemark(filter: { fields: { sourceInstanceName: { eq: "posts" } } }) {
             edges {
                 node {
                     id
