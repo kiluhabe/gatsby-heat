@@ -3,7 +3,7 @@ import { FluidObject } from 'gatsby-image'
 
 type ImageNode = Partial<{
     relativePath: string
-    fixed: FluidObject
+    fluid: FluidObject
 }>
 
 type ImageEdge = {
@@ -19,8 +19,8 @@ export function useImage(filename: string): FluidObject | undefined {
                         relativePath
                         name
                         childImageSharp {
-                            sizes(maxWidth: 9999) {
-                                ...GatsbyImageSharpSizes
+                            fluid(maxWidth: 1080) {
+                                ...GatsbyImageSharpFluid
                             }
                         }
                     }
@@ -32,5 +32,5 @@ export function useImage(filename: string): FluidObject | undefined {
     if (!image) {
         throw new Error('Image not found.')
     }
-    return image?.node?.childImageSharp?.sizes
+    return image?.node?.childImageSharp?.fluid
 }

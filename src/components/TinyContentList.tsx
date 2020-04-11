@@ -18,7 +18,7 @@ interface TinyContentListProps {
 }
 
 const TinyContentListItem: React.FC<TinyContentListItemProps> = ({ id, title, description, image, path }) => {
-    const sizes = useImage(image)
+    const fluid = useImage(image)
     return (
         <Styled.li key={id} sx={{ paddingBottom: '24px' }}>
             <Link sx={{ display: 'flex', alignItems: 'start' }} to={path}>
@@ -30,7 +30,7 @@ const TinyContentListItem: React.FC<TinyContentListItemProps> = ({ id, title, de
                         backgroundColor: 'black',
                         flex: '0 0 30%',
                     }}
-                    sizes={sizes}
+                    fluid={fluid}
                     alt={title}
                 />
                 <div>

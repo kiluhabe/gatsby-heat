@@ -14,7 +14,7 @@ interface PostHeaderProps {
 }
 
 export const PostHeader: React.FC<PostHeaderProps> = ({ id, title, description, date, image }) => {
-    const sizes = useImage(image)
+    const fluid = useImage(image)
     return (
         <header
             sx={{
@@ -31,7 +31,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ id, title, description, 
                     borderRadius: '.25rem',
                 }}
                 alt={title}
-                sizes={sizes}
+                fluid={fluid}
             />
             <Styled.h1>{title}</Styled.h1>
             <Styled.p

@@ -15,7 +15,7 @@ export interface PostCardProps {
 }
 
 export const PostCard: React.FC<PostCardProps> = ({ title, image, path }) => {
-    const sizes = useImage(image)
+    const fluid = useImage(image)
     return (
         <article
             sx={{
@@ -38,7 +38,7 @@ export const PostCard: React.FC<PostCardProps> = ({ title, image, path }) => {
                         borderRadius: '.25rem',
                     }}
                     alt={title}
-                    sizes={sizes}
+                    fluid={fluid}
                 />
             </Link>
             <Link to={path}>

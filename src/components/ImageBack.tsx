@@ -9,7 +9,7 @@ interface ImageBackProps {
 }
 
 export const ImageBack: React.FC<ImageBackProps> = ({ children, src }) => {
-    const sizes = useImage(src)
+    const fluid = useImage(src)
     return (
         <BackgroundImage
             style={{
@@ -24,7 +24,7 @@ export const ImageBack: React.FC<ImageBackProps> = ({ children, src }) => {
                 zIndex: -3,
                 position: 'relative',
             }}
-            sizes={sizes}
+            sizes={fluid}
         >
             <div
                 sx={{
