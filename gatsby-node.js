@@ -116,9 +116,9 @@ exports.createPages = async ({ graphql, actions }) => {
         const { title } = frontmatter
         const { slug } = fields
         const allPosts = postNodes.filter(({ frontmatter }) => frontmatter.categories.includes(title))
-        const maxPage = Math.ceil(allPosts.length / POST_PER_PAGE)
-        Array.from({ length: maxPage }).forEach((_, index) => {
-            const path = !index ? `/categories${slug}` : `/categories${slug}$${index + 1}`
+        const lastPage = Math.ceil(allPosts.length / POST_PER_PAGE)
+        Array.from({ length: lastPage }).forEach((_, index) => {
+            const path = !index ? `/categories${slug}` : `/categories${slug}${index + 1}`
             const posts = allPosts.slice(index * POST_PER_PAGE, (index + 1) * POST_PER_PAGE)
             createPage({
                 path,
@@ -127,6 +127,8 @@ exports.createPages = async ({ graphql, actions }) => {
                     category: node,
                     categories: categoryNodes,
                     posts,
+                    lastPage,
+                    currentPage: index + 1,
                 },
             })
         })

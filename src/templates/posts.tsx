@@ -5,6 +5,7 @@ import { CarouselJsonLd } from '../components/CarouselJsonLd'
 import { Container } from '../components/Container'
 import { Hero } from '../components/Hero'
 import { Layout } from '../components/Layout'
+import { PageNavigation } from '../components/PageNavigation'
 import { PostCardList } from '../components/PostCardList'
 import { Seo } from '../components/Seo'
 import { SideContentLayout } from '../components/SideContentLayout'
@@ -15,11 +16,15 @@ interface PostsProps {
         category: CategoryNode
         categories: CategoryNode[]
         posts: PostNode[]
+        lastPage: number
+        currentPage: number
     }
     path: string
 }
 
 const PostsPage: React.FC<PostsProps> = ({ pageContext, path }) => {
+    const { slug } = pageContext.category.fields
+    const basePath = `/categories${slug}`
     const { title, description, image } = pageContext.category.frontmatter
     const posts = pageContext.posts.map(({ id, frontmatter, fields }) => ({
         id,
@@ -41,6 +46,11 @@ const PostsPage: React.FC<PostsProps> = ({ pageContext, path }) => {
                 <SideContentLayout>
                     <React.Fragment>
                         <PostCardList posts={posts} />
+                        <PageNavigation
+                            basePath={basePath}
+                            lastPage={pageContext.lastPage}
+                            currentPage={pageContext.currentPage}
+                        />
                     </React.Fragment>
                     <React.Fragment>
                         <Styled.h2 sx={{ paddingBottom: '16px', borderBottom: 'solid 1px lightgray' }}>
