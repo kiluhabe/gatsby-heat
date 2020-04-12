@@ -1,7 +1,7 @@
 ---
 title: Test Post
 description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-categories: ['category2']
+categories: ['category2', 'category3']
 image: post.jpg
 date: '2019-01-02'
 ---

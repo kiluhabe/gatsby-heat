@@ -12,7 +12,7 @@ export const PostCardList: React.FC<PostCardListProps> = ({ posts }) => (
         sx={{
             display: 'flex',
             alignItems: 'stretch',
-            justifyContent: 'space-between',
+            justifyContent: 'start',
             flexWrap: 'wrap',
             width: '100%',
         }}
@@ -23,6 +23,7 @@ export const PostCardList: React.FC<PostCardListProps> = ({ posts }) => (
                 sx={{
                     flex: ['0 0 100%', '0 0 47%', '0 0 30%'],
                     maxWidth: ['100%', '47%', '30%'],
+                    marginRight: '16px',
                     marginBottom: '2rem',
                     position: 'relative',
                     boxSizing: 'border-box',

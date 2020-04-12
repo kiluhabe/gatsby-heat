@@ -47,13 +47,13 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
     const posts = data.posts.edges.map(({ node }) => ({
         id: node.id,
         ...node.frontmatter,
-        path: `/posts/${node.id}`,
+        path: `/posts/${node.fields.slug}`,
     }))
     const paths = posts.map(({ path }) => path)
     const categories = data.categories.edges.map(({ node }) => ({
         id: node.id,
         ...node.frontmatter,
-        path: `/categories/${node.id}`,
+        path: `/categories/${node.fields.slug}`,
     }))
     return (
         <Layout>
@@ -86,7 +86,9 @@ export const query = graphql`
             edges {
                 node {
                     id
-                    excerpt(pruneLength: 250)
+                    fields {
+                        slug
+                    }
                     frontmatter {
                         date(formatString: "MMMM DD, YYYY")
                         title
@@ -97,13 +99,13 @@ export const query = graphql`
                 }
             }
         }
-        categories: allMarkdownRemark(
-            sort: { order: DESC, fields: [frontmatter___date] }
-            filter: { fields: { sourceInstanceName: { eq: "categories" } } }
-        ) {
+        categories: allMarkdownRemark(filter: { fields: { sourceInstanceName: { eq: "categories" } } }) {
             edges {
                 node {
                     id
+                    fields {
+                        slug
+                    }
                     frontmatter {
                         title
                         description

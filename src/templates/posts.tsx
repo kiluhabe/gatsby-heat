@@ -30,29 +30,38 @@ interface PostsProps {
         }
     }
     pageContext: {
-        categoryId: string
+        id: string
     }
+    path: string
 }
 
-const PostsPage: React.FC<PostsProps> = ({ data, pageContext }) => {
-    const posts = data.posts.edges.map(({ node }) => ({
-        id: node.id,
-        ...node.frontmatter,
-        path: `/posts/${node.id}`,
+function getCategoryPosts(postNodes: PostNode[], category: string): PostNode[] {
+    return postNodes.filter(({ frontmatter }) => frontmatter.categories.includes(category))
+}
+
+const PostsPage: React.FC<PostsProps> = ({ data, pageContext, path }) => {
+    const category = getNodeById<CategoryNode>(data.categories.edges, pageContext.id)
+    const postNodes = data.posts.edges.map(({ node }) => node)
+    const posts = getCategoryPosts(postNodes, category.frontmatter.title).map(({ id, frontmatter, fields }) => ({
+        id,
+        ...frontmatter,
+        path: `/posts/${fields.slug}`,
     }))
-    const paths = posts.map(({ path }) => path)
+    const paths = posts.map(post => post.path)
     const categories = data.categories.edges.map(({ node }) => ({
         id: node.id,
         ...node.frontmatter,
-        path: `/categories/${node.id}`,
+        path: `/categories/${node.fields.slug}`,
     }))
-    const { frontmatter } = getNodeById<CategoryNode>(data.categories.edges, pageContext.categoryId)
-    const { title, description, image } = frontmatter
     return (
         <Layout>
-            <Seo title={title} description={description} />
+            <Seo title={category.frontmatter.title} description={category.frontmatter.description} path={path} />
             <CarouselJsonLd paths={paths} />
-            <Hero title={title} description={description} src={image} />
+            <Hero
+                title={category.frontmatter.title}
+                description={category.frontmatter.description}
+                src={category.frontmatter.image}
+            />
             <Container Tag="section">
                 <SideContentLayout>
                     <React.Fragment>
@@ -71,11 +80,17 @@ const PostsPage: React.FC<PostsProps> = ({ data, pageContext }) => {
 }
 
 export const query = graphql`
-    query CategoryListQuery($postIds: [String]!) {
-        posts: allMarkdownRemark(filter: { id: { in: $postIds }, fields: { sourceInstanceName: { eq: "posts" } } }) {
+    query CategoryListQuery {
+        posts: allMarkdownRemark(
+            filter: { fields: { sourceInstanceName: { eq: "posts" } } }
+            sort: { order: DESC, fields: [frontmatter___date] }
+        ) {
             edges {
                 node {
                     id
+                    fields {
+                        slug
+                    }
                     frontmatter {
                         title
                         description
@@ -90,6 +105,9 @@ export const query = graphql`
             edges {
                 node {
                     id
+                    fields {
+                        slug
+                    }
                     frontmatter {
                         title
                         description

@@ -2,6 +2,9 @@ declare interface PostNode {
     id: string
     html: string
     tableOfContents: string
+    fields: {
+        slug: string
+    }
     frontmatter: {
         title: string
         description: string
@@ -13,6 +16,9 @@ declare interface PostNode {
 
 declare interface CategoryNode {
     id: string
+    fields: {
+        slug: string
+    }
     frontmatter: {
         title: string
         description: string

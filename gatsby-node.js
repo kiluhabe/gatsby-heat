@@ -1,6 +1,6 @@
 'use strict'
 
-const path = require('path')
+const { resolve } = require('path')
 const { uniq, flatten } = require('ramda')
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
@@ -44,7 +44,6 @@ exports.createPages = async ({ graphql, actions }) => {
                     node {
                         id
                         fields {
-                            layout
                             slug
                         }
                         frontmatter {
@@ -61,6 +60,9 @@ exports.createPages = async ({ graphql, actions }) => {
                 edges {
                     node {
                         id
+                        fields {
+                            slug
+                        }
                         frontmatter {
                             title
                         }
@@ -80,24 +82,24 @@ exports.createPages = async ({ graphql, actions }) => {
     }
 
     allPostsMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
-        const { id, frontmatter } = node
-        const { categories } = frontmatter
+        const { id, fields } = node
+        const { slug } = fields
+        const path = `/posts${slug}`
         createPage({
-            path: `/posts/${id}`,
-            component: path.resolve(`./src/templates/post.tsx`),
-            context: { id, categories },
+            path,
+            component: resolve(`./src/templates/post.tsx`),
+            context: { id },
         })
     })
     allCategoriesMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
-        const { id, frontmatter } = node
+        const { id, frontmatter, fields } = node
         const { title } = frontmatter
-        const postIds = allPostsMarkdown.data.allMarkdownRemark.edges
-            .filter(({ node }) => node.frontmatter.categories.includes(title))
-            .map(({ node }) => node.id)
+        const { slug } = fields
+        const path = `/categories${slug}`
         createPage({
-            path: `/categories/${id}`,
-            component: path.resolve(`./src/templates/posts.tsx`),
-            context: { categoryId: id, postIds },
+            path,
+            component: resolve(`./src/templates/posts.tsx`),
+            context: { id },
         })
     })
 }

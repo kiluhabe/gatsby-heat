@@ -6,14 +6,14 @@ import { Share } from './Share'
 import { useImage } from '../hooks/useImage'
 
 interface PostHeaderProps {
-    id: string
     title: string
     description: string
     date: string
     image: string
+    path: string
 }
 
-export const PostHeader: React.FC<PostHeaderProps> = ({ id, title, description, date, image }) => {
+export const PostHeader: React.FC<PostHeaderProps> = ({ title, description, date, image, path }) => {
     const fluid = useImage(image)
     return (
         <header
@@ -56,7 +56,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ id, title, description, 
             >
                 {new Date(date).toDateString()}
             </time>
-            <Share path={`/posts/${id}`} />
+            <Share path={path} />
         </header>
     )
 }
