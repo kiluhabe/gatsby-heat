@@ -47,13 +47,13 @@ const IndexPage: React.FC<IndexProps> = ({ data }) => {
     const posts = data.posts.edges.map(({ node }) => ({
         id: node.id,
         ...node.frontmatter,
-        path: `/posts/${node.fields.slug}`,
+        path: `/posts${node.fields.slug}`,
     }))
     const paths = posts.map(({ path }) => path)
     const categories = data.categories.edges.map(({ node }) => ({
         id: node.id,
         ...node.frontmatter,
-        path: `/categories/${node.fields.slug}`,
+        path: `/categories${node.fields.slug}`,
     }))
     return (
         <Layout>

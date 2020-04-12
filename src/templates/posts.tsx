@@ -45,13 +45,13 @@ const PostsPage: React.FC<PostsProps> = ({ data, pageContext, path }) => {
     const posts = getCategoryPosts(postNodes, category.frontmatter.title).map(({ id, frontmatter, fields }) => ({
         id,
         ...frontmatter,
-        path: `/posts/${fields.slug}`,
+        path: `/posts${fields.slug}`,
     }))
     const paths = posts.map(post => post.path)
     const categories = data.categories.edges.map(({ node }) => ({
         id: node.id,
         ...node.frontmatter,
-        path: `/categories/${node.fields.slug}`,
+        path: `/categories${node.fields.slug}`,
     }))
     return (
         <Layout>

@@ -60,13 +60,13 @@ const Post: React.FC<PostProps> = ({ data, pageContext, path }) => {
     const relatedPosts = getRelatedPosts(postNodes, post).map(({ id, frontmatter, fields }) => ({
         id,
         ...frontmatter,
-        path: `/posts/${fields.slug}`,
+        path: `/posts${fields.slug}`,
     }))
     const categoryNodes = data.categories.edges.map(({ node }) => node)
     const categories = getPostCategories(categoryNodes, post).map(({ id, frontmatter, fields }) => ({
         id,
         title: frontmatter.title,
-        path: `/categories/${fields.slug}`,
+        path: `/categories${fields.slug}`,
     }))
     return (
         <Layout>
