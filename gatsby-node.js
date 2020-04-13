@@ -44,7 +44,7 @@ exports.createPages = async ({ graphql, actions }) => {
                     node {
                         id
                         html
-                        tableOfContents
+                        tableOfContents(absolute: false)
                         fields {
                             slug
                         }
