@@ -56,7 +56,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ title, description, date
             >
                 {new Date(date).toDateString()}
             </time>
-            <Share path={path} />
+            <Share path={path} imagePath={fluid?.src} />
         </header>
     )
 }
