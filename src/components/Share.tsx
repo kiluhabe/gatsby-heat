@@ -6,6 +6,8 @@ import {
     FacebookShareButton,
     LineIcon,
     LineShareButton,
+    PinterestIcon,
+    PinterestShareButton,
     PocketIcon,
     PocketShareButton,
     TwitterIcon,
@@ -17,17 +19,19 @@ import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
 interface ShareProps {
     path: string
+    imagePath?: string
 }
 
-export const Share: React.FC<ShareProps> = ({ path }) => {
+export const Share: React.FC<ShareProps> = ({ path, imagePath }) => {
     const { site } = useSiteMetadata()
     const url = `${site?.siteMetadata?.siteUrl}${path}`
+    const imageUrl = `${site?.siteMetadata?.siteUrl}${imagePath}`
     return (
         <div
             sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                width: ['50%', '37.5%', '25%'],
+                width: ['50%', '37.5%', '37.5%'],
                 marginTop: '16px',
                 marginBottom: '16px',
                 marginLeft: 'auto',
@@ -39,6 +43,11 @@ export const Share: React.FC<ShareProps> = ({ path }) => {
             <FacebookShareButton url={url}>
                 <FacebookIcon round={true} size={32} />
             </FacebookShareButton>
+            {!imagePath ? null : (
+                <PinterestShareButton url={url} media={imageUrl}>
+                    <PinterestIcon round={true} size={32} />
+                </PinterestShareButton>
+            )}
             <LineShareButton url={url}>
                 <LineIcon round={true} size={32} />
             </LineShareButton>

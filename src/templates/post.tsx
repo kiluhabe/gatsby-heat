@@ -43,8 +43,10 @@ const Post: React.FC<PostProps> = ({ pageContext, path }) => {
                     <React.Fragment>
                         <BadgeList items={categories} />
                         <PostHeader path={path} {...pageContext.post.frontmatter} />
-                        <Styled.h2 sx={{ margin: 0 }}>Tbale Of Contents</Styled.h2>
-                        <TableOfContents html={tableOfContents} />
+                        <div sx={{ borderLeft: '8px solid black', paddingLeft: '16px', marginBottom: '32px' }}>
+                            <Styled.h2 sx={{ margin: 0 }}>Tbale Of Contents</Styled.h2>
+                            <TableOfContents html={tableOfContents} />
+                        </div>
                         <PostBody html={html} />
                     </React.Fragment>
                     <React.Fragment>

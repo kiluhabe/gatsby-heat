@@ -9,11 +9,8 @@ interface TableOfContentsProps {
 export const TableOfContents: React.FC<TableOfContentsProps> = ({ html }) => (
     <section
         sx={{
-            borderBottom: 'solid 1px lightgray',
-            marginTop: '24px',
-            marginBottom: '32px',
-            paddingBottom: '16px',
-            paddingLeft: '4px',
+            marginTop: '16px',
+            paddingLeft: '2px',
             li: {
                 listStyle: 'none',
             },
@@ -26,6 +23,11 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({ html }) => (
             '& > ul': {
                 '> li': {
                     marginBottom: '8px',
+                    '> a': {
+                        color: 'text',
+                        borderBottom: 'solid 1px black',
+                        fontSize: [1, 2, 3],
+                    },
                     '> p': {
                         '> a': {
                             color: 'text',
