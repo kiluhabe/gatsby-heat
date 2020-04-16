@@ -24,7 +24,7 @@ export const ImageBack: React.FC<ImageBackProps> = ({ children, src }) => {
                 zIndex: -3,
                 position: 'relative',
             }}
-            sizes={fluid}
+            fluid={fluid}
         >
             <div
                 sx={{
