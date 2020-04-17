@@ -41,7 +41,7 @@ export const PostBody: React.FC<PostBodyProps> = ({ html }) => (
                 borderRadius: '3px',
                 boxSizing: 'border-box',
                 paddingBottom: '16px',
-                h2: {
+                'h2,h3': {
                     backgroundColor: 'text',
                     color: 'background',
                     borderTopLeftRadius: '3px',
