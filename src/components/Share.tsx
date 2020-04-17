@@ -31,7 +31,7 @@ export const Share: React.FC<ShareProps> = ({ path, imagePath }) => {
             sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                width: ['50%', '37.5%', '37.5%'],
+                width: ['75%', '37.5%', '37.5%'],
                 marginTop: '16px',
                 marginBottom: '16px',
                 marginLeft: 'auto',

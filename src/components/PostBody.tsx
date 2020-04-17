@@ -10,6 +10,7 @@ export const PostBody: React.FC<PostBodyProps> = ({ html }) => (
     <section
         sx={{
             marginBottom: '160px',
+            width: '100%',
             h2: {
                 fontFamily: 'heading',
                 lineHeight: 'heading',
@@ -39,6 +40,7 @@ export const PostBody: React.FC<PostBodyProps> = ({ html }) => (
                 boxShadow: '0 5px 10px 0 rgba(0,0,0,.1)',
                 borderRadius: '3px',
                 boxSizing: 'border-box',
+                paddingBottom: '16px',
                 h2: {
                     backgroundColor: 'text',
                     color: 'background',
@@ -49,52 +51,37 @@ export const PostBody: React.FC<PostBodyProps> = ({ html }) => (
                 },
             },
             '.transpose-table': {
-                table: {
-                    padding: '8px 16px',
+                ul: {
+                    listStyle: 'none',
                     width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    thead: {
-                        width: '100%',
-                        tr: {
-                            width: '100%',
-                            display: 'block',
-                            float: 'left',
-                            th: {
-                                width: '100%',
-                                display: 'block',
-                                textAlign: 'left',
-                                marginBottom: '8px',
-                                paddingBottom: '8px',
-                                borderBottom: '1px solid darkgray',
-                            },
-                            '>th:last-of-type': {
-                                borderBottom: 'none',
-                                marginBottom: 0,
-                                paddingBottom: 0,
-                            },
+                    margin: 0,
+                    fontSize: [1, 2, 2],
+                },
+                p: {
+                    margin: 0,
+                },
+                li: {
+                    wordBreak: 'break-word',
+                },
+                '>ul': {
+                    marginTop: '16px',
+                    '>li': {
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        borderBottom: '1px solid gray',
+                        paddingBottom: '4px',
+                        marginBottom: '4px',
+                        marginLeft: '8px',
+                        marginRight: '8px',
+                        paddingLeft: '8px',
+                        paddingRight: '8px',
+                        '>ul': {
+                            flex: '0 0 30%',
                         },
                     },
-                    tbody: {
-                        width: '100%',
-                        tr: {
-                            width: '100%',
-                            display: 'block',
-                            float: 'left',
-                            td: {
-                                width: '100%',
-                                display: 'block',
-                                textAlign: 'right',
-                                marginBottom: '8px',
-                                paddingBottom: '8px',
-                                borderBottom: '1px solid darkgray',
-                            },
-                            '>td:last-of-type': {
-                                borderBottom: 'none',
-                                marginBottom: 0,
-                                paddingBottom: 0,
-                            },
-                        },
+                    '>li:last-of-type': {
+                        marginBottom: 0,
                     },
                 },
             },
