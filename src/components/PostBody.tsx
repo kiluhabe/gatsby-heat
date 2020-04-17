@@ -28,6 +28,15 @@ export const PostBody: React.FC<PostBodyProps> = ({ html }) => (
                     borderBottom: 'solid 1px black',
                 },
             },
+            '>ul': {
+                marginLeft: '16px',
+                marginRight: '16px',
+                '>li': {
+                    '>ul': {
+                        marginLeft: '16px',
+                    },
+                },
+            },
             blockquote: {
                 marginTop: '40px',
                 marginBottom: '40px',
