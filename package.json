@@ -37,7 +37,7 @@
         "@types/ramda": "^0.26.39",
         "@types/react-helmet": "^5.0.15",
         "@types/theme-ui": "^0.2.6",
-        "@typescript-eslint/eslint-plugin": "^2.28.0",
+        "@typescript-eslint/eslint-plugin": "^2.34.0",
         "@typescript-eslint/parser": "^2.16.0",
         "amphtml-validator": "^1.0.30",
         "chrome-launcher": "^0.12.0",
