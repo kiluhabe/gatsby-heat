@@ -33,7 +33,7 @@
     },
     "devDependencies": {
         "@types/jest": "^24.9.0",
-        "@types/node": "^13.1.7",
+        "@types/node": "^14.14.22",
         "@types/ramda": "^0.26.39",
         "@types/react-helmet": "^5.0.15",
         "@types/theme-ui": "^0.2.6",
