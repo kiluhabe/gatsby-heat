@@ -32,7 +32,7 @@
         "theme-ui": "^0.2.52"
     },
     "devDependencies": {
-        "@types/jest": "^24.9.0",
+        "@types/jest": "^26.0.21",
         "@types/node": "^13.1.7",
         "@types/ramda": "^0.26.39",
         "@types/react-helmet": "^5.0.15",
